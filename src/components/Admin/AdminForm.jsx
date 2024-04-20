@@ -132,7 +132,7 @@ export default function AdminForm({ setShowForm, action, product }) {
               />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="size" className="text-sm text-gray-300">
+              <label htmlFor="size" className="text-sm text-gray-400">
                 Tamaño
               </label>
               <input
@@ -197,6 +197,7 @@ export default function AdminForm({ setShowForm, action, product }) {
           <div className="h-[360px] flex flex-row justify-between items-center">
             <div className="w-[60%] h-[360px] bg-slate-200 rounded-md relative">
             {formData.image && formData.image instanceof File && (
+
                 <img
                   src={URL.createObjectURL(formData.image)}
                   alt="Selected Image"
