@@ -45,7 +45,7 @@ export default function Admin() {
         />
       } 
       {!showForm && 
-      <div className={`flex flex-col items-center justify-start w-full h-full pb-2 gap-y-3`}>
+      <div className={`flex flex-col items-center justify-start w-full h-screen pb-2 gap-y-3 `}>
         <div className='flex flex-row justify-between items-center w-full'>
           <p className="text-[25px] font-semibold text-slate-300 tracking-wider mt-3">
             MÓDULO DE ADMINISTRADORES

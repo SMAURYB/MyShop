@@ -47,7 +47,7 @@ const Profile = () => {
   };
 
   return (
-    <div className={`${bg2} flex flex-row items-center justify-center w-full h-[900px]`}>
+    <div className={`${bg2} flex flex-row items-center justify-center w-full h-screen`}>
       <div className={`relative ${bg3} w-[400px] flex flex-col justify-between py-10 px-8 mt-[50px] rounded-xl`}>
         <button 
           className="absolute -right-1 -top-1 w-5 h-5 cursor-pointer rounded-full bg-[#e6ebf5] flex flex-row items-center justify-center"

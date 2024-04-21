@@ -4,6 +4,13 @@ import { collection, getDocs } from "firebase/firestore";
 
 function useDataBase() {
   const [dataBase, setDataBase] = useState([]);
+  const categoryData = [
+    { id: 1, name: 'Bebidas', category: '1' },
+    { id: 2, name: 'Víveres', category: '2' },
+    { id: 3, name: 'Aseo Personal', category: '3' },
+    { id: 4, name: 'Aseo Hogar', category: '4' },
+    { id: 5, name: 'Lacteos', category: '5' },
+  ];
 
   useEffect(() => {
     // Función para obtener la base de datos de productos desde Firestore
@@ -29,7 +36,7 @@ function useDataBase() {
     fetchData();
   }, []); // El array vacío como segundo argumento asegura que el efecto se ejecute solo una vez al montar el componente
 
-  return { dataBase };
+  return { dataBase, categoryData };
 }
 
 export default useDataBase;

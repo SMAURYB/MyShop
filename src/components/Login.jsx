@@ -78,7 +78,7 @@ export default function Login() {
   console.log("error", error)
 
   return (
-    <div className={`${bg2} flex flex-row items-center justify-center w-full h-[900px]`}>
+    <div className={`${bg2} flex flex-row items-center justify-center w-full h-screen`}>
       <div className="w-full max-w-xs m-auto">
         {/* {error && <Alert message={error} />} */}
         {errorSpanish && <Alert message={errorSpanish} />}

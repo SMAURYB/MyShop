@@ -61,7 +61,8 @@ export default function Store() {
     setMatchingCount(searchList.length);
   }, [searchItem]);
 
-  console.log("name", name)
+  console.log("filteredList", filteredList)
+  console.log("searchList", searchList)
 
   return (
     <>
@@ -82,7 +83,7 @@ export default function Store() {
           </div>
         </div>
       }
-    <div className={`${showProductImage ? 'blur-lg opacity-5' : `relative z-20 ${bg1} w-full`}`}>
+    <div className={`${showProductImage ? 'blur-lg opacity-5' : `relative z-20 ${bg1} w-full h-screen`}`}>
       <Sidebar 
         showMenu={showMenu} 
         bg1={bg1}
@@ -124,9 +125,9 @@ export default function Store() {
       </nav>
       <main className={`lg:pl-32 lg:pr-96 pb-20 flex flex-col items-center justify-start`}>
       
-        <div className="md:p-4 px-2 ">
+        <div className="md:p-4 px-2 w-[94%] border border-[#2e2]">
           {/* Header */}
-          <div  className="h-auto">
+          <div  className="h-auto border border-red-500">
             <Header 
               selectedCategory={selectedCategory}
               setSelectedCategory={setSelectedCategory}
@@ -152,24 +153,23 @@ export default function Store() {
           {
             searchItem
               ? searchList.map((item) => (
-                  <Card
-                    key={item.id}
-                    id={item.id}
-                    img={item.imagen}
-                    description={item.name}
-                    price={item.price}
-                    inventory={item.availability}
-                    size={item.size}
-                    setCarList={setCarList}
-                    carList={carList}
-                    selected={item.checked}
-                    setShowProductImage={setShowProductImage}
-                    setSelectedImage={setSelectedImage}
-                    filteredList={filteredList}
-                    searchList={searchList}
-                    bg3={bg3}
-                    bg2={bg2}
-                  />
+                <Card
+                  key={item.id} 
+                  id={item.id}
+                  img={item.imagen}
+                  description={item.name}
+                  price={item.price}
+                  inventory={item.availability}
+                  setCarList={setCarList}
+                  carList={carList}
+                  selected={item.checked}
+                  setShowProductImage={setShowProductImage}
+                  setSelectedImage={setSelectedImage}
+                  filteredList={filteredList}
+                  searchList={searchList}
+                  bg3={bg3}
+                  bg2={bg2}
+                />
                 ))
               : filteredList.map((item) => (
                   <Card

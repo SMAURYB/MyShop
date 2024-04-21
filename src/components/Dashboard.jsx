@@ -34,7 +34,7 @@ export default function Dashboard({ isAuthenticated }) {
   }, []);
 
   return (
-    <div className={`${bg2} flex flex-row items-center justify-center w-full h-[900px]`}>
+    <div className={`${bg2} flex flex-row items-center justify-center w-full h-screen`}>
       <div className={`flex flex-col items-center justify-center ${bg2} pt-5 pb-2 gap-y-3`}>
           <p className='text-[24px] text-[#8599cf]'>{userName}</p>
           <p className='text-[24px] text-[#c8d2ee]'>{message}</p>

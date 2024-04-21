@@ -7,9 +7,10 @@ const Header = (props) => {
   const [searchText, setSearchText] = useState(''); // Agregado estado para el texto de búsqueda
   const categoryData = [
     { id: 1, name: 'Bebidas', category: '1' },
-    { id: 2, name: 'Viveres', category: '2' },
+    { id: 2, name: 'Víveres', category: '2' },
     { id: 3, name: 'Aseo Personal', category: '3' },
     { id: 4, name: 'Aseo Hogar', category: '4' },
+    { id: 5, name: 'Lacteos', category: '5' },
   ];
 
   const hoy = new Date().toLocaleDateString();

@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
 import useThemes from "../../hooks/useThemes";
 import { useAuth } from "../../context/AuthContext";
-// src\components\Admin\AdminForm.jsx
-// src\context\AuthContext.jsx
+import useDataBase from '../../hooks/useDataBase';
 
 import { db, storage } from "../../firebase.config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Add getDownloadURL
 import { doc, setDoc } from "firebase/firestore";
 import { v4 } from "uuid";
 import Popup from "../shared/Popup";
-
-// Este formulario puede usarse para CREAR O EDITAR 
-// 'action' viene por props y determina si es EDIT o CREATE
 
 export default function AdminForm({ setShowForm, action, product }) {
   const { user } = useAuth();
@@ -20,6 +16,7 @@ export default function AdminForm({ setShowForm, action, product }) {
   const [showExitoso, setShowExitoso] = useState(false);
   const [actionText, setActionText] = useState(null)
   const [imageUrl, setImageUrl] = useState(null)
+  const { categoryData } = useDataBase();
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -70,10 +67,11 @@ export default function AdminForm({ setShowForm, action, product }) {
   }, [action, product]);
 
   console.log("imageUrl", imageUrl)
+  console.log("categoryData", categoryData)
 
   return (
     <div
-      className={`z-10 relative w-full h-full ${bg2} flex items-center justify-center `}
+      className={`z-10 relative w-full h-screen ${bg2} flex items-center justify-center `}
     >
       {showExitoso && (
         <div className="z-50 absolute shadow-xl">
@@ -185,13 +183,19 @@ export default function AdminForm({ setShowForm, action, product }) {
               <label htmlFor="category" className="text-sm text-gray-300">
                 Categoría
               </label>
-              <input
+              <select
                 name="category"
-                type="text"
                 value={formData.category || ""}
-                className="border border-gray-300 rounded-md px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
                 onChange={handleChange}
-              />
+                className="border border-gray-300 rounded-md px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
+              >
+                <option value="">Selecciona una categoría</option>
+                {categoryData.map(category => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
           <div className="h-[360px] flex flex-row justify-between items-center">
