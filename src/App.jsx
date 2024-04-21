@@ -56,5 +56,6 @@ export default App;
 // - No esta cargando las fotos en firebase
 // - Colocar que se vea la foto del producto en la tabla del index
 // - Tiene bugs al mostrar la lista de productos
-// - Que los temas sean una variable global y prevalescan
-// - Que las fotos circulares nunca se deformen
+// - Mostar fotos de productos en la tabla Admin
+// - branch-0003: Que los temas sean una variable global y prevalescan
+// - branch-0002: Que las fotos circulares nunca se deformen
