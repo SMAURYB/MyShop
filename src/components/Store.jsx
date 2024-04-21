@@ -125,9 +125,9 @@ export default function Store() {
       </nav>
       <main className={`lg:pl-32 lg:pr-96 pb-20 flex flex-col items-center justify-start`}>
       
-        <div className="md:p-4 px-2 w-[94%] border border-[#2e2]">
+        <div className="md:p-4 px-2 w-[94%]">
           {/* Header */}
-          <div  className="h-auto border border-red-500">
+          <div  className="h-auto">
             <Header 
               selectedCategory={selectedCategory}
               setSelectedCategory={setSelectedCategory}
