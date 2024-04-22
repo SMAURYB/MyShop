@@ -34,6 +34,8 @@ export default function Admin() {
     setShowForm(true)
   };
 
+  const sortedDataBase = dataBase.sort((a, b) => a.id - b.id);
+
   return (
     <div className={`flex flex-col items-center justify-start ${bg2} w-full h-full gap-y-2 px-20`}>
       {showForm && 
@@ -69,7 +71,7 @@ export default function Admin() {
               </tr>
             </thead>
             <tbody>
-              {dataBase.map(item => (
+              {sortedDataBase.map(item => (
                 <tr key={item.id} className="h-[46px] border border-slate-200">
                   <td className="border border-slate-200 text-center">{item.id}</td>
                   <td className="border border-slate-200 text-center">{item.ref}</td>
@@ -84,7 +86,7 @@ export default function Admin() {
                     <button className="flex flex-row items-center justify-center w-8 h-8 rounded-md bg-red-600 text-white" onClick={() => handleDeleteButton(item.id)}>
                       <RiDeleteBin6Line />
                     </button>
-                    <button className={`flex flex-row items-center justify-center w-8 h-8 rounded-md ${bg1} text-white" onClick={() => handleEditCreateButton(item)`}>
+                    <button className={`flex flex-row items-center justify-center w-8 h-8 rounded-md ${bg1} text-white`} onClick={() => handleEditCreateButton(item)}>
                       <RiEdit2Line />
                     </button>
                   </td>

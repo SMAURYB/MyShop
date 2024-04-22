@@ -31,12 +31,12 @@ export default function AdminForm({ setShowForm, action, product }) {
   
       // Construir la URL de descarga utilizando la información de la respuesta
       const buildImageUrl = `https://firebasestorage.googleapis.com/v0/b/${snapshot?.metadata?.bucket}/o/${encodeURIComponent(snapshot?.metadata?.name)}?alt=media&token=${snapshot?.metadata?.metadata?.downloadTokens}`;
-      setImageUrl(buildImageUrl)
+      
       // Crear un nuevo documento en Firestore con la URL de la imagen
       const docRef = doc(db, "productos", v4());
       await setDoc(docRef, {
         ...formData,
-        image: imageUrl,
+        image: buildImageUrl, // Utiliza la URL de la imagen obtenida
       });
   
       // Mostrar mensaje de éxito
@@ -49,7 +49,6 @@ export default function AdminForm({ setShowForm, action, product }) {
       );
     }
   }
-  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
