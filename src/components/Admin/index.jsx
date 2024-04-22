@@ -36,6 +36,8 @@ export default function Admin() {
 
   const sortedDataBase = dataBase.sort((a, b) => a.id - b.id);
 
+  console.log("sortedDataBase", sortedDataBase)
+
   return (
     <div className={`flex flex-col items-center justify-start ${bg2} w-full h-full gap-y-2 px-20`}>
       {showForm && 
@@ -54,34 +56,40 @@ export default function Admin() {
           </p>
           <p className='text-[25px] text-slate-300'>{name2}</p>
         </div>
-        <div className="overflow-y-scroll w-full h-[90%] custom-scroll border border-slate-200">
-          <table className="text-slate-300 w-full bg-zinc-400 bg-opacity-30 border border-slate-200">
-            <thead className={`h-[46px] ${bg1} sticky top-0 z-10 border border-slate-200`}>
+        <div className="overflow-y-scroll w-full h-[90%] custom-scroll border border-slate-500">
+          <table className="text-slate-300 w-full bg-zinc-400 bg-opacity-30 border border-slate-500">
+            <thead className={`h-[46px] ${bg1} sticky top-0 z-10 border border-slate-500`}>
               <tr>
-                <th className="border border-slate-200 px-2">Id</th>
-                <th className="border border-slate-200">Referencia</th>
-                <th className="border border-slate-200">Marca</th>
-                <th className="border border-slate-200">Nombre</th>
-                <th className="border border-slate-200">Tamaño</th>
-                <th className="border border-slate-200">Imagen</th>
-                <th className="border border-slate-200">Precio</th>
-                <th className="border border-slate-200">Disponibilidad</th>
-                <th className="border border-slate-200">Categoría</th>
-                <th className="border border-slate-200">Acción</th>
+                <th className="border border-slate-500 px-2">Id</th>
+                <th className="border border-slate-500 px-0 text-center">Imagen</th>
+                <th className="border border-slate-500">Referencia</th>
+                <th className="border border-slate-500">Marca</th>
+                <th className="border border-slate-500">Nombre</th>
+                <th className="border border-slate-500">Tamaño</th>
+                <th className="border border-slate-500">Imagen</th>
+                <th className="border border-slate-500">Precio</th>
+                <th className="border border-slate-500">Disponibilidad</th>
+                <th className="border border-slate-500">Categoría</th>
+                <th className="border border-slate-500">Acción</th>
               </tr>
             </thead>
             <tbody>
-              {sortedDataBase.map(item => (
-                <tr key={item.id} className="h-[46px] border border-slate-200">
-                  <td className="border border-slate-200 text-center">{item.id}</td>
-                  <td className="border border-slate-200 text-center">{item.ref}</td>
-                  <td className="border border-slate-200 pl-4">{item.branch}</td>
-                  <td className="border border-slate-200 pl-4">{item.name}</td>
-                  <td className="border border-slate-200 pl-4">{item.size}</td>
-                  <td className="border border-slate-200 pl-4">{item.imagen}</td>
-                  <td className="border border-slate-200 text-center">{item.price}</td>
-                  <td className="border border-slate-200 text-center">{item.availability}</td>
-                  <td className="border border-slate-200 text-center">{item.category}</td>
+            {sortedDataBase.map(item => (
+                <tr key={item.id} className="h-[46px] border border-slate-500">
+                  <td className="border border-slate-500 text-center">{item.id}</td>
+                  <td className="border border-slate-500 text-center">
+                    <div className="flex justify-center">
+                      <img src={item.imagen} alt="Product Image" className="h-10 w-10 object-cover" />
+                    </div>
+                  </td>
+                  <td className="border border-slate-500 text-center">{item.ref}</td>
+                  <td className="border border-slate-500 pl-4">{item.branch}</td>
+                  <td className="border border-slate-500 pl-4">{item.name}</td>
+                  <td className="border border-slate-500 pl-4">{item.size}</td>
+                  <td className="border border-slate-500 pl-4">{item.imagen}</td>
+                  <td className="border border-slate-500 text-center">{item.price}</td>
+                  <td className="border border-slate-500 text-center">{item.availability}</td>
+                  <td className="border border-slate-500 text-center">{item.category}</td>
                   <td className=" h-[46px] gap-x-3 flex flex-row items-center justify-center ">
                     <button className="flex flex-row items-center justify-center w-8 h-8 rounded-md bg-red-600 text-white" onClick={() => handleDeleteButton(item.id)}>
                       <RiDeleteBin6Line />

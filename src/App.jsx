@@ -45,7 +45,7 @@ function App() {
 
 export default App;
 
-
+// BACKLOG
 // - crear acceso a páginas por tipo de usuarios y tipos de usuarios en firebase
 // - crear módulo de pagos... hay que buscar opcion que cobre menos..recomedadas payu y mercadopago en versión test
 // - arreglar el hover del sidebar o hacer uno mas bacano
@@ -58,8 +58,10 @@ export default App;
 // - branch-0009: colocar el número de items seleccionados
 // - branch-0008: Despues de editar o crear un producto en firebase a traves de AdminForm, se debe actualizar la lista de productos en el index (revisar, creo que ya se resolvió)
 // - branch-0007: No esta cargando las fotos en firebase (revisar, creo que ya se resolvió)
-// - branch-0006: Colocar que se vea la foto del producto en la tabla del index
-// - branch-0005: Mostrar fotos de productos en la tabla Admin
+// - branch-0006: 
+// - branch-0005: Colocar que se vea la foto del producto en la tabla del index
+
+// DONE
 // - branch-0004: ordenar tabla de productos por ID en orden descendente
 // - branch-0003: Que los temas sean una variable global y prevalescan
 // - branch-0002: Que las fotos circulares nunca se deformen
