@@ -11,7 +11,6 @@ root.render(
   <React.StrictMode>
     {/* Envuelve el componente App con AuthProvider */}
     <AuthProvider>
-     
       <App />
     </AuthProvider>
   </React.StrictMode>

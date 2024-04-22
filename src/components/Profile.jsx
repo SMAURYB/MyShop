@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { GrFormClose } from 'react-icons/gr';
 import { useAuth } from "../context/AuthContext";
 import { db } from "../firebase.config"; 
-import useThemes from '../hooks/useThemes';
+import { useTheme } from '../context/ThemeContext';
 import { doc, setDoc } from "firebase/firestore";
 import { v4 } from "uuid";
 
@@ -13,7 +13,7 @@ const Profile = () => {
   const message = location.state?.message;
   const userPassword = location.state?.user?.password;
   const userEmail = location.state?.user?.email;
-  const { bg2, bg3 } = useThemes();
+  const { bg2, bg3 } = useTheme();
   const [formData, setFormData] = useState({
     username: '',
     phone: '',

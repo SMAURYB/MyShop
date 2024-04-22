@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Alert } from "./Alert";
-import useThemes from '../hooks/useThemes';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Register() {
   const { signup } = useAuth(); // Eliminamos uid de aquí
-  const { bg2 } = useThemes();
+  const { bg2 } = useTheme();
   const [user, setUser] = useState({
     email: "",
     password: ""

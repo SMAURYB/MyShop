@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useThemes from '../../hooks/useThemes';
+import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from "../../context/AuthContext";
 import { RiDeleteBin6Line, RiEdit2Line } from "react-icons/ri";
 import AdminForm from './AdminForm'; 
@@ -15,7 +15,7 @@ export default function Admin() {
   const location = useLocation();
   const { dataBase } = useDataBase();
   const name2 = location.state?.name;
-  const { bg2 } = useThemes();
+  const { bg1, bg2, bg3 } = useTheme();
   const navigate = useNavigate();
   // Function to handle item deletion
   const handleDeleteButton = (itemId) => {
@@ -52,9 +52,9 @@ export default function Admin() {
           </p>
           <p className='text-[25px] text-slate-300'>{name2}</p>
         </div>
-        <div className="overflow-y-scroll w-full h-[90%] rounded-lg ">
-          <table className="text-black w-full bg-zinc-400">
-            <thead className="h-[46px] bg-zinc-500 sticky top-0 z-10">
+        <div className="overflow-y-scroll w-full h-[90%] custom-scroll border border-slate-200">
+          <table className="text-slate-300 w-full bg-zinc-400 bg-opacity-30 border border-slate-200">
+            <thead className={`h-[46px] ${bg1} sticky top-0 z-10 border border-slate-200`}>
               <tr>
                 <th className="border border-slate-200 px-2">Id</th>
                 <th className="border border-slate-200">Referencia</th>
@@ -84,7 +84,7 @@ export default function Admin() {
                     <button className="flex flex-row items-center justify-center w-8 h-8 rounded-md bg-red-600 text-white" onClick={() => handleDeleteButton(item.id)}>
                       <RiDeleteBin6Line />
                     </button>
-                    <button className="flex flex-row items-center justify-center w-8 h-8 rounded-md bg-slate-700 text-white" onClick={() => handleEditCreateButton(item)}>
+                    <button className={`flex flex-row items-center justify-center w-8 h-8 rounded-md ${bg1} text-white" onClick={() => handleEditCreateButton(item)`}>
                       <RiEdit2Line />
                     </button>
                   </td>
@@ -95,13 +95,13 @@ export default function Admin() {
         </div>
         <div className='w-full flex flex-row items-center justify-between'>
           <button
-            className="bg-purple-900 hover:bg-slate-300 hover:text-purple-900 rounded text-xl py-2 px-6 mb-3 text-slate-300 font-bold"
+            className={`${bg1}  bg-opacity-50 hover:bg-slate-300 hover:text-purple-900 rounded text-xl py-2 px-6 mb-3 text-slate-300 font-bold`}
             onClick={() => navigate(-1)} 
           >
             Regresar
           </button>
           <button
-            className="bg-purple-900 hover:bg-slate-300 hover:text-purple-900 rounded text-xl py-2 px-6 mb-3 text-slate-300 font-bold"
+            className={`${bg1}  bg-opacity-50 hover:bg-slate-300 hover:text-purple-900 rounded text-xl py-2 px-6 mb-3 text-slate-300 font-bold`}
             onClick={() => handleEditCreateButton()}
           >
             Crear Producto
