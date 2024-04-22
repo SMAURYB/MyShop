@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import ColorThemes from './ColorThemes';
+import { useTheme } from '../../context/ThemeContext';
+
 import {
   RiHome6Line,
   RiUserLine,
@@ -15,19 +17,11 @@ import { useNavigate } from 'react-router-dom';
 const Sidebar = (props) => {
   const { 
     showMenu,
-    bg1,
-    bg2,
-    bg3,
-    bg4,
-    setBg1,
-    setBg2,
-    setBg3,
-    setBg4,
     name
   } = props;
   const [showColorOptions, setShowColorOptions] = useState(false);
   const navigate = useNavigate();
-  
+  const { bg1, bg2, bg4 } = useTheme();
   const handleDashboardClick = () => {
     navigate('/dashboard', {
       state: {
@@ -44,7 +38,7 @@ const Sidebar = (props) => {
 
   return (
     <div
-      className={`${bg2} fixed lg:left-0 top-0 w-28 h-full flex flex-col justify-between py-6 rounded-tr-xl rounded-br-xl z-50 transition-all ${
+      className={`${bg2} fixed lg:left-0 top-0 w-28 h-screen flex flex-col justify-between py-6 rounded-tr-xl rounded-br-xl z-50 transition-all ${
         showMenu ? 'left-0' : '-left-full'
       }`}
     >
@@ -104,11 +98,6 @@ const Sidebar = (props) => {
             { showColorOptions && 
               <div className={`absolute -top-[3px] -right-[110px] group-hover:${bg1} rounded-r-xl`}>
                 <ColorThemes 
-                  setBg1={setBg1}
-                  setBg2={setBg2}
-                  setBg3={setBg3}
-                  setBg4={setBg4}
-                  bg2={bg2}
                 />
               </div>}
           </li>

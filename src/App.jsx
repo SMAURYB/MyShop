@@ -8,6 +8,7 @@ import Profile from './components/Profile';
 import Payment from './components/Payment';
 import Admin from './components/Admin';
 import { useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext'; // Importa el proveedor de contexto de temas
 import './App.css';
 
 function App() {
@@ -17,26 +18,28 @@ function App() {
   const redirectToLogin = () => <Navigate to="/login" />;
 
   return (
-    <Router>
-      <Routes>
-        {/* Ruta para redirigir a /login si el usuario no está autenticado */}
-        <Route path="/store" element={!user && !loading ? redirectToLogin() : null} />
+    <ThemeProvider> {/* Envuelve toda la aplicación con el proveedor de contexto de temas */}
+      <Router>
+        <Routes>
+          {/* Ruta para redirigir a /login si el usuario no está autenticado */}
+          <Route path="/store" element={!user && !loading ? redirectToLogin() : null} />
 
-        {/* Define las rutas normales */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        {user && (
-          <>
-            {/* Pasa la prop isAuthenticated al componente Dashboard */}
-            <Route path="/" element={<Store />} />
-            <Route path="/dashboard" element={<Dashboard isAuthenticated={true} />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/payment" element={<Payment />} />
-            <Route path="/admin" element={<Admin />} />
-          </>
-        )}
-      </Routes>
-    </Router>
+          {/* Define las rutas normales */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          {user && (
+            <>
+              {/* Pasa la prop isAuthenticated al componente Dashboard */}
+              <Route path="/" element={<Store />} />
+              <Route path="/dashboard" element={<Dashboard isAuthenticated={true} />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/payment" element={<Payment />} />
+              <Route path="/admin" element={<Admin />} />
+            </>
+          )}
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 
@@ -48,7 +51,6 @@ export default App;
 // - arreglar el hover del sidebar o hacer uno mas bacano
 // - botón del profile de usuario debe regresar, no lo hace
 // - bug si me devuelvo de payment, que no se borre el carrito de compras
-// - bug corregir en carrito, si se selecciona un item, y se cambia de tab, se borra el check
 // - usar Contex para variables globales como carrito de compras
 // - colocar el número de items seleccionados
 

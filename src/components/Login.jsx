@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Alert } from "./Alert";
-import useThemes from '../hooks/useThemes';
+import { useTheme } from '../context/ThemeContext';
 // import { AuthCredential } from 'firebase/auth';
 
 export default function Login() {
@@ -10,7 +10,7 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const { bg2 } = useThemes();
+  const { bg2 } = useTheme();
   const { login, loginWithGoogle, resetPassword } = useAuth();
   const [error, setError] = useState("");
   const [errorSpanish, setErrorSpanish] = useState("");

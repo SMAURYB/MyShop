@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import useThemes from "../../hooks/useThemes";
+import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from "../../context/AuthContext";
 import useDataBase from '../../hooks/useDataBase';
 
@@ -11,7 +11,7 @@ import Popup from "../shared/Popup";
 
 export default function AdminForm({ setShowForm, action, product }) {
   const { user } = useAuth();
-  const { bg2, bg3, bg4 } = useThemes();
+  const { bg2, bg3, bg4 } = useTheme();
   const [formData, setFormData] = useState({});
   const [showExitoso, setShowExitoso] = useState(false);
   const [actionText, setActionText] = useState(null)

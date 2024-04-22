@@ -25,7 +25,7 @@ const Header = (props) => {
   return (
     <header>
       {/* Title and search */}
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6 ">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2 ">
         <div>
           <h1 className="text-2xl text-gray-100 opacity-90">Tienda Virtual</h1>
           <p className="text-gray-300 opacity-80">Fecha: {hoy}</p>
@@ -56,7 +56,7 @@ const Header = (props) => {
             </p>
           </nav>
         :
-          <nav className='text-gray-300 text-lg flex items-center justify-between md:justify-start md:gap-8 border-b mb-6'>
+          <nav className='text-gray-300 text-lg flex items-center justify-between md:justify-start md:gap-8 border-b mb-3'>
             {categoryData.map(item => (
               <button
                 key={item.id}

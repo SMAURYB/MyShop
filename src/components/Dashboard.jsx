@@ -2,18 +2,17 @@ import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
 import mercado from '../assets/mercado.png';
-import useThemes from '../hooks/useThemes';
+import { useTheme } from '../context/ThemeContext';
 import useUsers from '../hooks/useUsers';
 
 export default function Dashboard({ isAuthenticated }) {
-  const { bg2 } = useThemes();
   const { getUserDataByEmail, userName } = useUsers();
   const authContext = useAuth();
   const location = useLocation();
   const message = location.state?.message;
   const submessage = location.state?.submessage;
   const navigate = useNavigate();
-
+  const { bg2 } = useTheme();
   const userEmail = authContext?.user?.email;
 
   const handleContinueClick = () => {
