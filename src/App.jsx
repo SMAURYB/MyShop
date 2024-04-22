@@ -52,12 +52,11 @@ export default App;
 // - botón del profile de usuario debe regresar, no lo hace
 // - bug si me devuelvo de payment, que no se borre el carrito de compras
 // - usar Contex para variables globales como carrito de compras
-// - colocar el número de items seleccionados
 
-// - Despues de editar o crear un producto en firebase a traves de AdminForm, se debe actualizar la lista de productos en el index
-// - No esta cargando las fotos en firebase
-// - Colocar que se vea la foto del producto en la tabla del index
-// - Tiene bugs al mostrar la lista de productos
-// - Mostar fotos de productos en la tabla Admin
+// - branch-0008: colocar el número de items seleccionados
+// - branch-0007: Despues de editar o crear un producto en firebase a traves de AdminForm, se debe actualizar la lista de productos en el index (revisar, creo que ya se resolvió)
+// - branch-0006: No esta cargando las fotos en firebase (revisar, creo que ya se resolvió)
+// - branch-0005: Colocar que se vea la foto del producto en la tabla del index
+// - branch-0004: Mostrar fotos de productos en la tabla Admin
 // - branch-0003: Que los temas sean una variable global y prevalescan
 // - branch-0002: Que las fotos circulares nunca se deformen
