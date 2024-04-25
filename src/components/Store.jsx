@@ -15,7 +15,7 @@ import Sidebar from "./shared/Sidebar";
 import Car from "./shared/Car";
 import Header from "./shared/Header";
 import Card from "./shared/Card";
-import useDataBase from "../hooks/useDataBase";
+import { useDataBase } from "../hooks/useDataBase";
 
 export default function Store() {
   const authContext = useAuth();
