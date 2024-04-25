@@ -18,6 +18,7 @@ const Car = (props) => {
   } = props;
 
   const [totalCarrito, setTotalCarrito] = useState(0);
+  const [itemsQty, setItemsQty] = useState(0)
   const navigate = useNavigate();
 
   const updateTotalCarrito = (cant, producto, index) => {
@@ -36,7 +37,6 @@ const Car = (props) => {
         return item;
       }
     });
-
     setCarList(lista);
     setTotalCarrito(total);
   };
@@ -70,14 +70,13 @@ const Car = (props) => {
       if (elementToModify2) {
         elementToModify2.checked = false
       }
-
-    // const updatedCarList = carList.filter((_, i) => i.id !== id);
-    // setCarList(updatedCarList);
-    // // Desmarcar el elemento correspondiente en filteredList
-    // setFilteredList(updatedFilteredList);
-    // // unSelectCheckbox(index);
   };
 
+  useEffect(() => {
+    const qty = carList.length;
+    setItemsQty(qty);
+  }, [carList]);
+  
   // Efecto para actualizar el total cada vez que renderice
   useEffect(() => {
     updateTotalCarrito();
@@ -95,27 +94,7 @@ const Car = (props) => {
           onClick={() => setShowOrder(false)}
           className={`lg:hidden absolute left-4 top-4 p-3 box-content text-gray-300 ${bg1} rounded-full text-xl`}
         />
-        {/* <h1 className="text-2xl my-4">Orders #151416</h1> */}
-        {/* Pills */}
-        {/* <div className="flex items-center gap-4 flex-wrap mb-8">
-          <button className={`${bg4} text-white py-2 px-4 rounded-xl`}>
-            Dine In
-          </button>
-          <button className="text-[#ec7c6a] py-2 px-4 rounded-xl border border-gray-500">
-            To Go
-          </button>
-          <button className="text-[#ec7c6a] py-2 px-4 rounded-xl border border-gray-500">
-            Delivery
-          </button>
-        </div> */}
-        {/* Car */}
         <div>
-          <div className="grid grid-cols-6 mb-4 p-4">
-            <h5 className="col-span-4">Item</h5>
-            <h5>Cantidad</h5>
-            <h5>{carList?.price}</h5>
-          </div>
-          {/* Products */}
           <div className="h-[420px] md:h-[700px] lg:h-[540px] overflow-scroll custom-scroll">
           {carList.map((item, index) => (
             <CarBasket 
@@ -131,7 +110,6 @@ const Car = (props) => {
               setCarList={setCarList}
               deleteItem={() => deleteItem(item.id)}  // Agrega esta línea
               bg1={bg1}
-              // deleteItemFromCar={() => deleteItemFromCar(index)}
             />
           ))}
         </div>
@@ -140,7 +118,7 @@ const Car = (props) => {
         <div className={`${bg1} absolute w-full bottom-0 left-0 p-4`}>
           <div className="flex items-center justify-between mb-4">
             <span className="text-gray-400">Productos seleccionados: </span>
-            <span>10</span>
+            <span>{itemsQty}</span>
           </div>
           <div className="flex items-center justify-between mb-6">
             <span className="text-gray-400">Subtotal</span>

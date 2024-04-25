@@ -49,7 +49,7 @@ const Sidebar = (props) => {
           </li>
           <li className={`${bg2} p-4 rounded-tl-xl rounded-bl-xl group transition-colors`}>
             <button
-              onClick={() => navigate("/home")}
+              onClick={() => navigate("/dashboard")}
               className={`group-hover:${bg4} p-4 flex justify-center rounded-xl text-[#ec7c6a] group-hover:text-white transition-colors`}
             >
               <RiHome6Line className="text-2xl" />
