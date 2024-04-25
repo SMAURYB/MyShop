@@ -53,15 +53,16 @@ export default App;
 // - bug si me devuelvo de payment, que no se borre el carrito de compras
 // - usar Contex para variables globales como carrito de compras
 
-// - branch-0011: hacer que los colores de fondo tengan gradiente
-// - branch-0010: poner a funcionar el botón delete de la tabla
-// - branch-0009: colocar el número de items seleccionados
-// - branch-0008: Despues de editar o crear un producto en firebase a traves de AdminForm, se debe actualizar la lista de productos en el index (revisar, creo que ya se resolvió)
+// - branch-0006: Que aparezca el nombre y no el id de la categoria en la tabla
+// - branch-0007: poner a funcionar el botón delete de la tabla
 // - branch-0007: No esta cargando las fotos en firebase (revisar, creo que ya se resolvió)
-// - branch-0006: 
-// - branch-0005: Colocar que se vea la foto del producto en la tabla del index
+// - branch-0008: Despues de editar o crear un producto en firebase a traves de AdminForm, se debe actualizar la lista de productos en el index (revisar, creo que ya se resolvió)
+// - branch-0009: colocar el número de items seleccionados
+// - branch-0010: 
+// - branch-0011: hacer que los colores de fondo tengan gradiente
 
 // DONE
-// - branch-0004: ordenar tabla de productos por ID en orden descendente
-// - branch-0003: Que los temas sean una variable global y prevalescan
 // - branch-0002: Que las fotos circulares nunca se deformen
+// - branch-0003: Que los temas sean una variable global y prevalescan
+// - branch-0004: ordenar tabla de productos por ID en orden descendente
+// - branch-0005: Colocar que se vea la foto del producto en la tabla del index

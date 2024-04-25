@@ -3,8 +3,10 @@ import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from "../../context/AuthContext";
 import { RiDeleteBin6Line, RiEdit2Line } from "react-icons/ri";
 import AdminForm from './AdminForm'; 
-import useDataBase from '../../hooks/useDataBase';
+import { useDataBase } from '../../hooks/useDataBase';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { db } from "../../firebase.config"; // Importa la instancia de Firestore
+import { doc, deleteDoc } from "firebase/firestore";
 import '../../App.css';
 
 export default function Admin() {
@@ -13,18 +15,24 @@ export default function Admin() {
   const [action, setAction] = useState(null);
   const { user } = useAuth();
   const location = useLocation();
-  const { dataBase } = useDataBase();
+  const { dataBase, categoryData } = useDataBase();
   const name2 = location.state?.name;
   const { bg1, bg2, bg3 } = useTheme();
   const navigate = useNavigate();
-  // Function to handle item deletion
-  const handleDeleteButton = (itemId) => {
-    // Implement deletion logic here
-  };
+
+  // Función para eliminar un producto de Firestore
+const handleDeleteButton = async (productId) => {
+  try {
+    const documentRef = doc(db, "productos", productId);
+    await deleteDoc(documentRef);
+    console.log("Producto eliminado exitosamente");
+  } catch (error) {
+    console.error("Error al eliminar el producto:", error);
+  }
+};
 
   // Function to handle item editing
   const handleEditCreateButton = (producto) => {
-    console.log("producto", producto)
     if(producto) {
       setAction('Edit')
       setProduct(producto)
@@ -32,6 +40,12 @@ export default function Admin() {
       setAction('Create')
     }
     setShowForm(true)
+  };
+
+  // Función para obtener el nombre de la categoría a partir de su ID
+  const getCategoryName = (categoryId) => {
+    const category = categoryData.find(cat => cat.category === categoryId);
+    return category ? category.name : 'Categoría Desconocida';
   };
 
   const sortedDataBase = dataBase.sort((a, b) => a.id - b.id);
@@ -58,7 +72,7 @@ export default function Admin() {
         </div>
         <div className="overflow-y-scroll w-full h-[90%] custom-scroll border border-slate-500">
           <table className="text-slate-300 w-full bg-zinc-400 bg-opacity-30 border border-slate-500">
-            <thead className={`h-[46px] ${bg1} sticky top-0 z-10 border border-slate-500`}>
+            <thead className={`h-[46px] ${bg1} sticky top-0 z-10 border-4 border-slate-500`}>
               <tr>
                 <th className="border border-slate-500 px-2">Id</th>
                 <th className="border border-slate-500 px-0 text-center">Imagen</th>
@@ -79,7 +93,7 @@ export default function Admin() {
                   <td className="border border-slate-500 text-center">{item.id}</td>
                   <td className="border border-slate-500 text-center">
                     <div className="flex justify-center">
-                      <img src={item.imagen} alt="Product Image" className="h-10 w-10 object-cover" />
+                      <img src={item.imagen} alt="Product Image" className="h-10 w-10 object-cover rounded-md" />
                     </div>
                   </td>
                   <td className="border border-slate-500 text-center">{item.ref}</td>
@@ -89,7 +103,9 @@ export default function Admin() {
                   <td className="border border-slate-500 pl-4">{item.imagen}</td>
                   <td className="border border-slate-500 text-center">{item.price}</td>
                   <td className="border border-slate-500 text-center">{item.availability}</td>
-                  <td className="border border-slate-500 text-center">{item.category}</td>
+                  <td className="border border-slate-500 text-center">
+                    {getCategoryName(item.category)}
+                  </td>
                   <td className=" h-[46px] gap-x-3 flex flex-row items-center justify-center ">
                     <button className="flex flex-row items-center justify-center w-8 h-8 rounded-md bg-red-600 text-white" onClick={() => handleDeleteButton(item.id)}>
                       <RiDeleteBin6Line />
