@@ -15,17 +15,16 @@ import Sidebar from "./shared/Sidebar";
 import Car from "./shared/Car";
 import Header from "./shared/Header";
 import Card from "./shared/Card";
-import { useDataBase } from "../hooks/useDataBase";
+import useDataBase from "../hooks/useDataBase";
 
 export default function Store() {
   const authContext = useAuth();
   const location = useLocation();
-  const { dataBase } = useDataBase();
+  const { dataBase, categoryData, selectedCategory, setSelectedCategory } = useDataBase();
   const { bg1, bg2, bg3, bg4 } = useTheme();
-  const [selectedCategory, setSelectedCategory] = useState("1");
   const [showMenu, setShowMenu] = useState(false);
   const [showOrder, setShowOrder] = useState(false);
-  const [filteredList, setFilteredList] = useState([]);
+  const filteredList = dataBase.filter(item => item.category === selectedCategory);
   const [searchList, setSearchList] = useState([]);
   const [carList, setCarList] = useState([]);
   const [searchItem, setSearchItem] = useState("");
@@ -38,11 +37,24 @@ export default function Store() {
   const message = location.state?.message;
 
   useEffect(() => {
-    const filteredData = dataBase.filter(
-      (item) => item.category === selectedCategory
-    );
-    setFilteredList(filteredData);
+    // Establecer la categoría por defecto como "Bebidas" al montar el componente
+    setSelectedCategory("1");
+  }, []);
+
+  useEffect(() => {
+    // Filtrar los productos por la categoría seleccionada
+    const filteredData = dataBase.filter((item) => item.category === selectedCategory);
+    setSearchList(filteredData);
   }, [selectedCategory]);
+
+  useEffect(() => {
+    // Filtrar la lista de búsqueda cuando cambie el término de búsqueda
+    const searchData = dataBase.filter((item) =>
+      item.name.toLowerCase().includes(searchItem.toLowerCase())
+    );
+    setSearchList(searchData);
+    setMatchingCount(searchData.length);
+  }, [searchItem]);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -54,14 +66,7 @@ export default function Store() {
     setShowMenu(false);
   };
 
-  useEffect(() => {
-    const searchData = dataBase.filter((item) =>
-      item.name.toLowerCase().includes(searchItem.toLowerCase())
-    );
-    setSearchList(searchData);
-    setMatchingCount(searchList.length);
-  }, [searchItem]);
-
+  
   return (
     <div className={`${bg1}`}>
       {showProductImage && (
@@ -121,6 +126,7 @@ export default function Store() {
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}
                 setSearchItem={setSearchItem}
+                categoryData={categoryData}
                 matchingCount={matchingCount}
                 bg2={bg2}
                 bg4={bg4}

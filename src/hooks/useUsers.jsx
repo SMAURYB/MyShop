@@ -16,16 +16,16 @@ function useUsers() {
     const [error, setError] = useState(null);
 
     const getUserDataByEmail = async (userMail) => {
-      console.log("entré a getUserDataByEmail")
+    //   console.log("entré a getUserDataByEmail")
         setLoading(true);
         setError(null);
         try {
             const userCollectionRef = collection(db, "usuarios");
             const userSnapshot = await getDocs(userCollectionRef);
             const userDataArray = userSnapshot.docs.map(doc => doc.data());
-            console.log("todos los users", userDataArray)
+            // console.log("todos los users", userDataArray)
             const currentUserData = userDataArray.find(user => user?.correo === userMail);
-            console.log("currentUserData", currentUserData)
+            // console.log("currentUserData", currentUserData)
             if (currentUserData) {
                 setUserData(currentUserData);
                 setUserName(currentUserData.nombre);

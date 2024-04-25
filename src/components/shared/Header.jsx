@@ -1,7 +1,7 @@
 import { RiSearch2Line } from "react-icons/ri";
 import { useState } from "react";
 import { useAuth } from '../../context/AuthContext';
-import { useDataBase } from '../../hooks/useDataBase';
+import useDataBase from '../../hooks/useDataBase';
 
 const Header = (props) => {
   const { selectedCategory, setSelectedCategory, setSearchItem, matchingCount, bg2, bg4, name } = props;
