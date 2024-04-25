@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from "../../context/AuthContext";
-import { useDataBase } from '../../hooks/useDataBase';
+import useDataBase from '../../hooks/useDataBase';
 
 import { db, storage } from "../../firebase.config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Add getDownloadURL
@@ -66,8 +66,8 @@ export default function AdminForm({ setShowForm, action, product }) {
     }   
   }, [action, product]);
 
-  console.log("imageUrl", imageUrl)
-  console.log("categoryData", categoryData)
+  // console.log("imageUrl", imageUrl)
+  // console.log("categoryData", categoryData)
 
   return (
     <div

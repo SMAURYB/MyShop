@@ -3,7 +3,7 @@ import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from "../../context/AuthContext";
 import { RiDeleteBin6Line, RiEdit2Line } from "react-icons/ri";
 import AdminForm from './AdminForm'; 
-import { useDataBase } from '../../hooks/useDataBase';
+import useDataBase from '../../hooks/useDataBase';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { db } from "../../firebase.config"; // Importa la instancia de Firestore
 import { doc, deleteDoc } from "firebase/firestore";
@@ -49,8 +49,6 @@ const handleDeleteButton = async (productId) => {
   };
 
   const sortedDataBase = dataBase.sort((a, b) => a.id - b.id);
-
-  console.log("sortedDataBase", sortedDataBase)
 
   return (
     <div className={`flex flex-col items-center justify-start ${bg2} w-full h-full gap-y-2 px-20`}>
