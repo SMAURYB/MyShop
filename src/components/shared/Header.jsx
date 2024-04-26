@@ -51,7 +51,7 @@ const Header = (props) => {
             </p>
           </nav>
         :
-          <nav className='text-slate-100 text-lg flex items-center justify-between md:justify-start md:gap-8 border-b mb-3'>
+          <nav className='text-slate-100 flex items-center justify-between md:justify-start md:gap-8 border-b mb-3'>
             {categoryData.map(item => (
               <button
                 key={item.id}

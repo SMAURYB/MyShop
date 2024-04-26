@@ -52,12 +52,11 @@ export default App;
 // - bug si me devuelvo de payment, que no se borre el carrito de compras
 // - usar Contex para variables globales como carrito de compras
 
+// - Mejorar errores de la versión mobil
 // - branch-0012: poner a funcionar el botón delete de la tabla
-// - branch-0009: hacer un tema claro (blanco)
 // - No esta cargando las fotos en firebase (revisar, creo que ya se resolvió)
-
-// - branch-0010: (x) el boton del formulario profile no funciona
-// - branch-0011: 
+// - branch-0011: Personalizar los checkboxes de las cards
+// - Mejorar el scroll del car
 // - hacer que los colores de fondo tengan gradiente
 
 // DONE
@@ -68,3 +67,5 @@ export default App;
 // - branch-0006: Que aparezca el nombre y no el id de la categoria en la 
 // - branch-0007: colocar el número de items seleccionados
 // - branch-0008: Despues de editar o crear un producto en firebase a traves de AdminForm, se debe actualizar la lista de productos en el index (revisar, creo que ya se resolvió)
+// - branch-0009: hacer un tema claro (blanco)
+// - branch-0010: (x) el boton del formulario profile no funciona

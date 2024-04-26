@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { RiCloseLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import CarBasket from "./CarBasket";
+import EmptyCarBasket from "./EmptyCarBasket";
 import '../../App.css';
 
 const Car = (props) => {
@@ -14,6 +15,7 @@ const Car = (props) => {
     searchList,
     bg1,
     bg2,
+    bg3,
     bg4
   } = props;
 
@@ -84,7 +86,7 @@ const Car = (props) => {
 
   return (
     <div
-      className={`lg:col-span-2 fixed top-0 ${bg2} w-full lg:w-96 lg:right-0 h-full transition-all z-50 ${
+      className={`lg:col-span-2 fixed top-0 ${bg2} w-full lg:w-96 lg:right-0 h-full transition-all border border-slate-400/10 z-10 ${
         showOrder ? "right-0" : "-right-full"
       }`}
     >
@@ -94,39 +96,46 @@ const Car = (props) => {
           onClick={() => setShowOrder(false)}
           className={`lg:hidden absolute left-4 top-4 p-3 box-content text-slate-300 ${bg1} rounded-full text-xl`}
         />
-        <div>
-          <div className="h-[420px] md:h-[700px] lg:h-[540px] overflow-scroll custom-scroll">
-          {carList.map((item, index) => (
-            <CarBasket 
-              key={item.id}  // Asegúrate de agregar esta línea
-              id={item.id}
-              productName={item.description}
-              price={item.price}
-              image={item.img}
-              inventory={item.inventory}
-              updateTotalCarrito={(cant) => updateTotalCarrito(cant, item, index)}
-              producto={item}
-              index={index} // Pasa el índice al componente CarBasket
-              setCarList={setCarList}
-              deleteItem={() => deleteItem(item.id)}  // Agrega esta línea
-              bg1={bg1}
-            />
-          ))}
-        </div>
+        <div className="border border-slate-400/10">
+          <div className="relative h-[420px] md:h-[700px] lg:h-[540px] overflow-scroll custom-scroll">
+            {carList.length > 0 ? carList.map((item, index) => (
+              <CarBasket 
+                key={item.id}  // Asegúrate de agregar esta línea
+                id={item.id}
+                productName={item.description}
+                price={item.price}
+                image={item.img}
+                inventory={item.inventory}
+                updateTotalCarrito={(cant) => updateTotalCarrito(cant, item, index)}
+                producto={item}
+                index={index} // Pasa el índice al componente CarBasket
+                setCarList={setCarList}
+                deleteItem={() => deleteItem(item.id)}  // Agrega esta línea
+                bg1={bg1}
+              />
+              ))
+              :
+              <>
+        <EmptyCarBasket />
+        <EmptyCarBasket />
+        <EmptyCarBasket />
+      </>
+            }
+          </div>
         </div>
         {/* Submit payment */}
-        <div className={`${bg1} absolute w-full bottom-0 left-0 p-4`}>
+        <div className={`${bg3} absolute w-full bottom-0 left-0 p-4 border border-slate-400/10`}>
           <div className="flex items-center justify-between mb-4">
-            <span className="text-slate-100">Productos seleccionados: </span>
+            <span className="text-[#fff]">Productos seleccionados: </span>
             <span>{itemsQty}</span>
           </div>
           <div className="flex items-center justify-between mb-6">
-            <span className="text-slate-100">Subtotal</span>
+            <span className="text-[#fff]">Subtotal</span>
             <span>$ {totalCarrito}</span>
           </div>
           <div>
             <button 
-              className={`${bg4} w-full py-2 px-4 rounded-lg text-[#fefff9]`}
+              className={`${bg4} w-full py-2 px-4 rounded-lg text-[#fff] font-bold`}
               onClick={() => navigate("/payment")}
             >
               Continuar con el pago

@@ -17,7 +17,7 @@ const Card = (props) => {
     filteredList,
   } = props;
 
-  const { bg2, bg3 } = useTheme();
+  const { bg2, bg3, bg4 } = useTheme();
 
   const handleCheckboxChange = () => {
     if (!selected) {
@@ -54,7 +54,7 @@ const Card = (props) => {
   }
 
   return (
-    <div className={`${selected ? `${bg3}` : `${bg2}` } min-w-[210px] h-[300px] py-8 rounded-xl flex flex-col items-center gap-2 text-center text-slate-100 shadow-lg`}>
+    <div className={`${selected ? `${bg3}` : `${bg2}` } min-w-[210px] h-[300px] py-8 rounded-xl flex flex-col items-center gap-2 text-center text-slate-100 shadow-lg border border-slate-400/20`}>
       <button
         onClick={handleShowProductImage}
         className="hover:scale-[102%] duration-75 ease-out  "

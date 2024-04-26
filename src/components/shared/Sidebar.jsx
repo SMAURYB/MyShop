@@ -40,28 +40,31 @@ const Sidebar = (props) => {
 
   return (
     <>
-   
-   <div className={`absolute top-[620px] left-[-18px] z-10 ${showColorOptions ? 'translate-x-[138px] transition ease-out' : 'delay-300 translate-x-0 transition ease-in'}`}>
-
-      <ColorThemes
-        setShowColorOptions={setShowColorOptions}
-        bg2={bg2}
-        bg1={bg1}
-      />
-    </div>
-
-    {!showColorOptions && (
-      <div className="absolute top-[620px] left-[-20px] z-10 slide-out-left">
+    
+      <div className={`absolute top-[620px] z-10 transition transform duration-1000 ease ${showColorOptions ? 'translate-x-[114px] ' : 'translate-x-0'}`}>
         <ColorThemes
+          showColorOptions={showColorOptions}
           setShowColorOptions={setShowColorOptions}
           bg2={bg2}
           bg1={bg1}
         />
+      
+    </div>
+
+    {!showColorOptions && (
+      
+        <div className="absolute top-[620px] left-[-20px] z-10 slide-out-left">
+          <ColorThemes
+            setShowColorOptions={setShowColorOptions}
+            bg2={bg2}
+            bg1={bg1}
+          />
+        
       </div>
     )}
 
     <div
-      className={`${bg2} fixed lg:left-0 top-0 w-28 h-screen flex flex-col justify-between py-6 rounded-tr-xl rounded-br-xl z-40 transition-all ${
+      className={`${bg2} fixed lg:left-0 top-0 w-28 h-screen flex flex-col justify-between py-6 rounded-tr-xl rounded-br-xl z-40 transition-all border border-slate-400/20 ${
         showMenu ? 'left-0' : '-left-full'
       }`}
     >

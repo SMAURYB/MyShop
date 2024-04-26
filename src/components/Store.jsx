@@ -104,7 +104,7 @@ export default function Store() {
           bg4={bg4}
         />
         {/* Menu movil */}
-        <nav className={`z-20 blu lg:hidden fixed w-full h-screen bottom-0 left-0 text-3xl text-gray-400 py-2 px-8 flex items-center justify-between rounded-tl-xl rounded-tr-xl`}>
+        <nav className={`z-20 lg:hidden fixed w-full h-screen bottom-0 left-0 text-3xl text-gray-100 py-2 px-8 flex items-end justify-between rounded-tl-xl rounded-tr-xl`}>
           <button className="p-2">
             <RiUser3Line />
           </button>

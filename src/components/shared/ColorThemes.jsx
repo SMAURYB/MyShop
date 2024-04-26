@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from '../../context/ThemeContext';
 
-export default function ColorThemes({ setShowColorOptions, bg2 }) {
+export default function ColorThemes({ showColorOptions, setShowColorOptions, bg2 }) {
   const { setThemes } = useTheme();
 
   // Define an array of theme objects
@@ -13,7 +13,7 @@ export default function ColorThemes({ setShowColorOptions, bg2 }) {
     },
     {
       name: 'Beige',
-      colors: ['bg-[#4d452d]', 'bg-[#363023]', 'bg-[#756941]', 'bg-[#e8cc32]'],
+      colors: ['bg-[#4d452d]', 'bg-[#363023]', 'bg-[#756941]', 'bg-[#ad9611]'],
       txColor: 'text-[#dabf67]'
     },
     {
@@ -45,7 +45,7 @@ export default function ColorThemes({ setShowColorOptions, bg2 }) {
   };
 
   return (
-    <div className={`w-32 rounded-xl p-4 ${bg2}`}>
+    <div className={`w-32 rounded-xl p-4 ${bg2} border border-slate-400/10 transition-opacity duration-500 ${!showColorOptions && 'opacity-0' }`}>
       <ul className="gap-2 text-gray-300 text-lg list-disc list-inside">
         {themes.map((theme, index) => (
           <li
