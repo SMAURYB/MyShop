@@ -57,7 +57,8 @@ export default App;
 // - No esta cargando las fotos en firebase (revisar, creo que ya se resolvió)
 
 // - branch-0010: (x) el boton del formulario profile no funciona
-// - branch-0011: hacer que los colores de fondo tengan gradiente
+// - branch-0011: 
+// - hacer que los colores de fondo tengan gradiente
 
 // DONE
 // - branch-0002: Que las fotos circulares nunca se deformen
