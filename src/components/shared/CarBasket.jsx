@@ -19,7 +19,7 @@ const CarBasket = (props) => {
   };
 
   return (
-    <div className={`${bg1} p-3 rounded-xl mb-[10px]`}>
+    <div className={`${bg1} p-3 rounded-xl mb-[10px] border border-slate-400/10 shadow-md`}>
       <div className="mb-[7px] gap-2 flex flex-row justify-between">
         {/* Product description */}
         <div className="flex items-center gap-3">

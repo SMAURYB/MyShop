@@ -8,7 +8,7 @@ export default function ColorThemes({ showColorOptions, setShowColorOptions, bg2
   const themes = [
     {
       name: 'Purple',
-      colors: ['bg-[#262837]', 'bg-[#1F1D2B]', 'bg-[#312d49]', 'bg-[#d26554]'],
+      colors: ['bg-[#262837]', 'bg-[#1F1D2B]', 'bg-[#312d494c]', 'bg-[#d26554]'],
       txColor: 'text-[#6a55e4]'
     },
     {

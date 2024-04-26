@@ -25,15 +25,15 @@ const Header = (props) => {
           <h1 className="text-2xl text-[#f4f9fa] opacity-90">Tienda Virtual</h1>
           <p className="text-[#f4f9fa] opacity-80">Fecha: {hoy}</p>
         </div>
-        <div className="flex flex-col items-start justify-center mt-3">
+        <div className="flex flex-col items-start justify-center mt-3 pt-3 h-[50px]">
           <form >
-            <div className="w-full relative flex flex-row items-center justify-between">
+            <div className="w-full relative flex flex-row items-center justify-between ">
               <RiSearch2Line className="absolute left-3 top-1/2 -translate-y-1/2 text-[#f4f9fa]" />
               <input
                 onChange={handleSearch}
                 value={searchText}
                 type="text"
-                className={`${bg2} w-full py-2 pl-10 pr-4 rounded-lg text-[#f4f9fa] outline-none`}
+                className={`${bg2} w-full py-2 pl-10 pr-4 rounded-lg text-[#f4f9fa] outline-none border border-slate-400/10`}
                 placeholder="Buscar"
               />
             </div>

@@ -54,7 +54,7 @@ const Card = (props) => {
   }
 
   return (
-    <div className={`${selected ? `${bg3}` : `${bg2}` } min-w-[210px] h-[300px] py-8 rounded-xl flex flex-col items-center gap-2 text-center text-slate-100 shadow-lg border border-slate-400/20`}>
+    <div className={`${selected ? `${bg3}` : `${bg2}` } max-w-[300px] min-w-[210px] h-[300px] py-8 rounded-xl flex flex-col items-center gap-2 text-center text-slate-100 shadow-lg border border-slate-400/20`}>
       <button
         onClick={handleShowProductImage}
         className="hover:scale-[102%] duration-75 ease-out  "
@@ -67,10 +67,10 @@ const Card = (props) => {
       </button>
   
       <p className="text-[20px] hover:text-[#fff] hover:scale-[101%]">{description}</p>
-      <span className="text-[18px] text-slate-200  hover:text-slate-300 hover:scale-[101%]">${price}</span>
-      <p className="text-[14px] text-slate-200  hover:text-slate-300 hover:scale-[101%]">{inventory} disponibles</p>
+      <span className="text-[18px] text-slate-100  hover:text-slate-300 hover:scale-[101%]">${price}</span>
+      <p className="text-[14px] text-slate-100  hover:text-slate-100 hover:scale-[101%]">{inventory} disponibles</p>
   
-      <label className="text-[14px] text-slate-200 hover:text-slate-300 hover:scale-[101%]">
+      <label className="text-[14px] text-slate-100 hover:text-slate-200 hover:scale-[101%]">
         <div className="flex items-center">
           <span className="mr-4">
             Meter al carrito
@@ -79,7 +79,7 @@ const Card = (props) => {
             type="checkbox"
             checked={selected}
             onChange={handleCheckboxChange}
-            className="custom-checkbox"
+            className="appearance-none checked:bg-blue-500"
           />
           {/* <span className="checkmark"></span> */}
         </div>
