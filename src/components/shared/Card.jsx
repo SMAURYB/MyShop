@@ -54,7 +54,7 @@ const Card = (props) => {
   }
 
   return (
-    <div className={`${selected ? `${bg3}` : `${bg2}` } min-w-[210px] h-[300px] py-8 rounded-xl flex flex-col items-center gap-2 text-center text-gray-300 shadow-lg`}>
+    <div className={`${selected ? `${bg3}` : `${bg2}` } min-w-[210px] h-[300px] py-8 rounded-xl flex flex-col items-center gap-2 text-center text-slate-100 shadow-lg`}>
       <button
         onClick={handleShowProductImage}
         className="hover:scale-[102%] duration-75 ease-out  "
@@ -62,15 +62,15 @@ const Card = (props) => {
         <img
           src={img}
           alt={description}
-          className="w-[170px] h-[170px] object-cover max-w-full -mt-[85px] shadow-2xl rounded-full border border-gray-400"
+          className="w-[170px] h-[170px] object-cover max-w-full -mt-[85px] shadow-2xl rounded-full border border-slate-400"
         />
       </button>
   
       <p className="text-[20px] hover:text-[#fff] hover:scale-[101%]">{description}</p>
-      <span className="text-[18px] text-gray-200  hover:text-gray-300 hover:scale-[101%]">${price}</span>
-      <p className="text-[14px] text-gray-400  hover:text-gray-300 hover:scale-[101%]">{inventory} disponibles</p>
+      <span className="text-[18px] text-slate-200  hover:text-slate-300 hover:scale-[101%]">${price}</span>
+      <p className="text-[14px] text-slate-200  hover:text-slate-300 hover:scale-[101%]">{inventory} disponibles</p>
   
-      <label className="text-[14px] text-gray-200 hover:text-gray-300 hover:scale-[101%]">
+      <label className="text-[14px] text-slate-200 hover:text-slate-300 hover:scale-[101%]">
         <div className="flex items-center">
           <span className="mr-4">
             Meter al carrito

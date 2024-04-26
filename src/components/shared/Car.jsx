@@ -89,10 +89,10 @@ const Car = (props) => {
       }`}
     >
       {/* Orders */}
-      <div className="relative pt-16 lg:pt-8 text-gray-300 p-8 h-full">
+      <div className="relative pt-16 lg:pt-8 text-slate-300 p-8 h-full">
         <RiCloseLine
           onClick={() => setShowOrder(false)}
-          className={`lg:hidden absolute left-4 top-4 p-3 box-content text-gray-300 ${bg1} rounded-full text-xl`}
+          className={`lg:hidden absolute left-4 top-4 p-3 box-content text-slate-300 ${bg1} rounded-full text-xl`}
         />
         <div>
           <div className="h-[420px] md:h-[700px] lg:h-[540px] overflow-scroll custom-scroll">
@@ -117,11 +117,11 @@ const Car = (props) => {
         {/* Submit payment */}
         <div className={`${bg1} absolute w-full bottom-0 left-0 p-4`}>
           <div className="flex items-center justify-between mb-4">
-            <span className="text-gray-400">Productos seleccionados: </span>
+            <span className="text-slate-100">Productos seleccionados: </span>
             <span>{itemsQty}</span>
           </div>
           <div className="flex items-center justify-between mb-6">
-            <span className="text-gray-400">Subtotal</span>
+            <span className="text-slate-100">Subtotal</span>
             <span>$ {totalCarrito}</span>
           </div>
           <div>

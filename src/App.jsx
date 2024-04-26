@@ -56,7 +56,7 @@ export default App;
 // - branch-0009: hacer un tema claro (blanco)
 // - No esta cargando las fotos en firebase (revisar, creo que ya se resolvió)
 
-// - branch-0010: 
+// - branch-0010: (x) el boton del formulario profile no funciona
 // - branch-0011: hacer que los colores de fondo tengan gradiente
 
 // DONE
