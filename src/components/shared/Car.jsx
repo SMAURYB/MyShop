@@ -86,18 +86,18 @@ const Car = (props) => {
 
   return (
     <div
-      className={`lg:col-span-2 fixed top-0 ${bg2} w-full lg:w-96 lg:right-0 h-full transition-all border border-slate-400/10 z-10 ${
+      className={`lg:col-span-2 fixed top-0 ${bg2} w-full lg:w-96 lg:right-0 h-full transition-all border border-slate-400/10 ${
         showOrder ? "right-0" : "-right-full"
       }`}
     >
       {/* Orders */}
-      <div className="relative pt-16 lg:pt-8 text-slate-300 p-8 h-full">
+      <div className="relative pt-16 lg:pt-8 text-slate-300 p-8 h-full border border-slate-400/10">
         <RiCloseLine
           onClick={() => setShowOrder(false)}
           className={`lg:hidden absolute left-4 top-4 p-3 box-content text-slate-300 ${bg1} rounded-full text-xl`}
         />
-        <div className="border border-slate-400/10">
-          <div className="relative h-[420px] md:h-[700px] lg:h-[540px] overflow-scroll custom-scroll">
+        <div className="">
+          <div className="relative h-[420px] md:h-[700px] lg:h-[560px] overflow-scroll custom-scroll">
             {carList.length > 0 ? carList.map((item, index) => (
               <CarBasket 
                 key={item.id}  // Asegúrate de agregar esta línea
@@ -116,10 +116,10 @@ const Car = (props) => {
               ))
               :
               <>
-        <EmptyCarBasket />
-        <EmptyCarBasket />
-        <EmptyCarBasket />
-      </>
+                <EmptyCarBasket />
+                <EmptyCarBasket />
+                <EmptyCarBasket />
+              </>
             }
           </div>
         </div>
