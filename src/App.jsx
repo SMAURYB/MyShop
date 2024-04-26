@@ -55,7 +55,7 @@ export default App;
 // - Mejorar errores de la versión mobil
 // - branch-0012: poner a funcionar el botón delete de la tabla
 // - No esta cargando las fotos en firebase (revisar, creo que ya se resolvió)
-// - branch-0012: Personalizar los checkboxes de las cards
+
 
 // - hacer que los colores de fondo tengan gradiente
 
@@ -70,3 +70,4 @@ export default App;
 // - branch-0009: hacer un tema claro (blanco)
 // - branch-0010: (x) el boton del formulario profile no funciona
 // - branch-0011: Mejorar el scroll del car
+// - branch-0012: Personalizar los checkboxes de las cards

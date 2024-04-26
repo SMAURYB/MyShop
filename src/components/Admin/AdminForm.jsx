@@ -66,12 +66,13 @@ export default function AdminForm({ setShowForm, action, product }) {
     }   
   }, [action, product]);
 
-  // console.log("imageUrl", imageUrl)
+  console.log("imageUrl", imageUrl)
+  console.log('product', product)
   // console.log("categoryData", categoryData)
 
   return (
     <div
-      className={`z-10 relative w-full h-screen ${bg2} flex items-center justify-center `}
+      className={`z-10 relative w-full h-screen ${bg2} flex items-center justify-center`}
     >
       {showExitoso && (
         <div className="z-50 absolute shadow-xl">
@@ -87,7 +88,7 @@ export default function AdminForm({ setShowForm, action, product }) {
         {/* FORMULARIO PARA CREAR O EDITAR PRODUCTOS */}
         <form
           onSubmit={onSubmit}
-          className={`rounded-lg ${bg3} flex flex-col p-8 shadow-md gap-y-8 `}
+          className={`rounded-lg ${bg3} flex flex-col p-8 gap-y-8  shadow-2xl`}
         >
           <p className="text-slate-300 text-2xl -mb-5 font-bold">
             FORMULARIO PARA {actionText} PRODUCTOS
@@ -173,7 +174,7 @@ export default function AdminForm({ setShowForm, action, product }) {
                 name="image"
                 type="file"
                 accept="image/*"
-                className="border border-gray-400 rounded-md px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
+                className="border border-gray-400 rounded-md px-3 py-[5px] mt-1 focus:outline-none focus:border-blue-500"
                 onChange={(event) =>
                   setFormData({ ...formData, image: event.target.files[0] })
                 }
@@ -199,15 +200,15 @@ export default function AdminForm({ setShowForm, action, product }) {
             </div>
           </div>
           <div className="h-[360px] flex flex-row justify-between items-center">
-            <div className="w-[60%] h-[360px] bg-slate-200 rounded-md relative">
-            {formData.image && formData.image instanceof File && (
+            <div className="w-[60%] h-[360px] bg-slate-200 rounded-md relative shadow-lg">
+            {product.image && typeof product.image === 'string' && (
+              <img
+                src={product?.imagen}
+                alt={product.imagen}
+                className="object-cover w-full h-full rounded-md"
+              />
+            )}
 
-                <img
-                  src={URL.createObjectURL(formData.image)}
-                  alt="Selected Image"
-                  className="object-cover w-full h-full rounded-md"
-                />
-              )}
 
               {!formData.image && (
                 <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-400">
