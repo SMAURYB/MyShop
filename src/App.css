@@ -26,52 +26,6 @@
   border-radius: 20px;
 }
 
-/* Estilos para el contenedor del checkbox personalizado */
-.custom-checkbox {
-  position: relative;
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-}
-
-/* Estilos para el checkbox oculto */
-.custom-checkbox input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* Estilos para el chulo del checkbox */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 24px;
-  height: 24px;
-  border: 2px solid #ccc; /* Color del borde del chulo */
-  border-radius: 4px;
-}
-
-/* Estilos para el fondo y el chulo del checkbox cuando está marcado */
-.custom-checkbox input:checked + .checkmark {
-  background-color: rgba(111, 138, 191, 0.5); /* Fondo transparente con opacidad */
-  border-color: #4FD1C5; /* Borde del chulo */
-}
-
-/* Estilos para el chulo del checkbox cuando está marcado */
-.custom-checkbox input:checked + .checkmark:after {
-  display: block;
-  content: "";
-  position: absolute;
-  left: 7px;
-  top: 3px;
-  width: 6px;
-  height: 12px;
-  border: solid #22C55E; /* Color del chulo verde */
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
 .transition {
   transition: transform 1s ease, opacity 1s ease;
 }
