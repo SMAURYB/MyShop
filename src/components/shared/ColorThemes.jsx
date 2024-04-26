@@ -28,7 +28,7 @@ export default function ColorThemes({ setShowColorOptions, bg2 }) {
     },
     {
       name: 'Forest',
-      colors: ['bg-[#364c30]', 'bg-[#253321]', 'bg-[#467f37]', 'bg-[#45eb88]'],
+      colors: ['bg-[#538346]', 'bg-[#47693e]', 'bg-[#79bb66]', 'bg-[#82cc6d]'],
       txColor: 'text-[#86e76b]'
     },
     {

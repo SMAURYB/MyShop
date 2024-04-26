@@ -13,7 +13,7 @@ const Profile = () => {
   const message = location.state?.message;
   const userPassword = location.state?.user?.password;
   const userEmail = location.state?.user?.email;
-  const { bg2, bg3 } = useTheme();
+  const { bg1, bg2, bg3, bg4 } = useTheme();
   const [formData, setFormData] = useState({
     username: '',
     phone: '',
@@ -51,7 +51,7 @@ const Profile = () => {
       <div className={`relative ${bg3} w-[400px] flex flex-col justify-between py-10 px-8 mt-[50px] rounded-xl`}>
         <button 
           className="absolute -right-1 -top-1 w-5 h-5 cursor-pointer rounded-full bg-[#e6ebf5] flex flex-row items-center justify-center"
-          onClick={() => navigate(-2)}
+          onClick={() => navigate(-1)}
         >
           <GrFormClose size={18} />
         </button>
@@ -116,13 +116,13 @@ const Profile = () => {
             <button
               type="button"
               onClick={() => navigate("/dashboard", { state: { message: 'Bienvenido a su tienda Online' } })}
-              className="bg-[#ec7c6a] text-white rounded-lg p-2 w-full mt-10"
+              className={`${bg2} hover:bg-opacity-50 text-white rounded-lg p-2 w-full mt-10`}
             >
               Saltar este paso
             </button>
             <button
               type="submit"
-              className="bg-[#ec7c6a] text-white rounded-lg p-2 w-full mt-10"
+              className={`${bg2} hover:bg-opacity-50 text-white rounded-lg p-2 w-full mt-10`}
             >
               Enviar
             </button>
