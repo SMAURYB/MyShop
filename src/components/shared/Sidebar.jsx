@@ -11,7 +11,9 @@ import {
   RiSettings4Line,
   RiLogoutCircleRLine,
 } from 'react-icons/ri';
+import { TbColorSwatch } from "react-icons/tb";
 import { TiShoppingCart } from "react-icons/ti";
+
 import { useNavigate } from 'react-router-dom';
 
 const Sidebar = (props) => {
@@ -37,13 +39,35 @@ const Sidebar = (props) => {
   const hoverBg1 = `hover:${bg1}`;
 
   return (
+    <>
+   
+   <div className={`absolute top-[620px] left-[-18px] z-10 ${showColorOptions ? 'translate-x-[138px] transition ease-out' : 'delay-300 translate-x-0 transition ease-in'}`}>
+
+      <ColorThemes
+        setShowColorOptions={setShowColorOptions}
+        bg2={bg2}
+        bg1={bg1}
+      />
+    </div>
+
+    {!showColorOptions && (
+      <div className="absolute top-[620px] left-[-20px] z-10 slide-out-left">
+        <ColorThemes
+          setShowColorOptions={setShowColorOptions}
+          bg2={bg2}
+          bg1={bg1}
+        />
+      </div>
+    )}
+
     <div
-      className={`${bg2} fixed lg:left-0 top-0 w-28 h-screen flex flex-col justify-between py-6 rounded-tr-xl rounded-br-xl z-50 transition-all ${
+      className={`${bg2} fixed lg:left-0 top-0 w-28 h-screen flex flex-col justify-between py-6 rounded-tr-xl rounded-br-xl z-40 transition-all ${
         showMenu ? 'left-0' : '-left-full'
       }`}
     >
+       
       <div>
-        <ul className="pl-4">
+        <ul className="pl-4 z-50">
           <li className="mb-2 flex justify-center text-[#fff]">
             <TiShoppingCart className="w-[60px] h-[60px] opacity-70" />
           </li>
@@ -88,18 +112,20 @@ const Sidebar = (props) => {
               </button>
           </li>
           <li className={`relative hover:${bg1} p-4 rounded-tl-xl rounded-bl-xl group transition-colors`}>
+            <button
+              className={`group-hover:${bg4} p-4 flex justify-center rounded-xl text-[#ec7c6a] group-hover:text-white transition-colors`}
+            >
+              <RiSettings4Line className="text-2xl" />
+            </button>
+          </li>
+          <li className={`z-0 relative hover:${bg1} p-4 rounded-tl-xl rounded-bl-xl group transition-colors`}>
             {/* Botón para navegar a /dashboard */}
             <button
               onClick={handlerColorOptions}
               className={`group-hover:${bg4} p-4 flex justify-center rounded-xl text-[#ec7c6a] group-hover:text-white transition-colors`}
             >
-              <RiSettings4Line className="text-2xl" />
+              <TbColorSwatch className="text-2xl" />
             </button>
-            { showColorOptions && 
-              <div className={`absolute -top-[3px] -right-[110px] group-hover:${bg1} rounded-r-xl`}>
-                <ColorThemes 
-                />
-              </div>}
           </li>
         </ul>
       </div>
@@ -117,7 +143,9 @@ const Sidebar = (props) => {
         </ul>
       </div>
     </div>
-  );
+  
+    </>
+    );
 };
 
 export default Sidebar;
