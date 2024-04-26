@@ -62,7 +62,7 @@ const Card = (props) => {
         <img
           src={img}
           alt={description}
-          className="w-[170px] h-[170px] object-cover max-w-full -mt-[85px] shadow-2xl rounded-full border border-slate-400"
+          className="w-[170px] h-[170px] object-cover max-w-full -mt-[85px] shadow-2xl rounded-full border border-slate-500"
         />
       </button>
   
@@ -79,7 +79,7 @@ const Card = (props) => {
             type="checkbox"
             checked={selected}
             onChange={handleCheckboxChange}
-            className="appearance-none checked:bg-blue-500"
+            className="appearance-none checked:bg-green-400 w-4 h-4 text-green-300 bg-gray-100 border-gray-300 rounded focus:ring-green-300 dark:focus:ring-green-300 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
           />
           {/* <span className="checkmark"></span> */}
         </div>
