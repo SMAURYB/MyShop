@@ -13,42 +13,71 @@ import Popup from "../shared/Popup";
 export default function AdminForm({ setShowForm, action, product }) {
   const { user } = useAuth();
   const { bg2, bg3, bg4 } = useTheme();
-  const [formData, setFormData] = useState({});
   const [showExitoso, setShowExitoso] = useState(false);
   const [actionText, setActionText] = useState(null)
   const [imageUrl, setImageUrl] = useState(null)
   const { categoryData } = useDataBase();
 
+  const [formData, setFormData] = useState({
+    // Establecer la imagen del producto si estás en modo de edición
+    image: action === "Edit" ? product.image : null,
+    // Agregar un campo de ID cuando se está creando un nuevo producto
+    id: action === "Create" ? v4() : null,
+  });
+
   async function onSubmit(event) {
     event.preventDefault();
-  
-    try {
+
+    if (action === "Create") {
+      // Handle Create logic
       const imageFile = formData.image;
-      const imageRef = ref(storage, `images/${imageFile?.name}`);
-      const uploadTask = uploadBytes(imageRef, imageFile);
-  
-      // Obtener la respuesta de la subida
-      const snapshot = await uploadTask;
-  
-      // Construir la URL de descarga utilizando la información de la respuesta
-      const buildImageUrl = `https://firebasestorage.googleapis.com/v0/b/${snapshot?.metadata?.bucket}/o/${encodeURIComponent(snapshot?.metadata?.name)}?alt=media&token=${snapshot?.metadata?.metadata?.downloadTokens}`;
-      
-      // Crear un nuevo documento en Firestore con la URL de la imagen
-      const docRef = doc(db, "productos", v4());
+      if (!imageFile) {
+        console.error("No image selected");
+        return;
+      }
+
+      const imageRef = ref(storage, `images/${imageFile.name}`);
+      await uploadBytes(imageRef, imageFile);
+      const imageUrl = await getDownloadURL(imageRef);
+
+      // Construct the document reference for the new product
+      const docRef = doc(db, "productos", formData.id); // Use the ID from formData
+
+      // Set the document with form data and image URL
       await setDoc(docRef, {
         ...formData,
-        image: buildImageUrl, // Utiliza la URL de la imagen obtenida
+        image: imageUrl,
       });
-  
-      // Mostrar mensaje de éxito
+
+      // Show success message and close form
       setShowExitoso(true);
       setShowForm(false);
-    } catch (error) {
-      console.error(
-        "Error al enviar los datos del producto a Firestore:",
-        error
-      );
+      return;
     }
+
+    // Handle Edit logic
+    const imageFile = formData.image;
+    if (!imageFile) {
+      console.error("No image selected");
+      return;
+    }
+
+    const imageRef = ref(storage, `images/${imageFile.name}`);
+    await uploadBytes(imageRef, imageFile);
+    const imageUrl = await getDownloadURL(imageRef);
+
+    // Construct the document reference for the existing product
+    const docRef = doc(db, "productos", product.id); // Use product.id from props
+
+    // Update the document with new data
+    await setDoc(docRef, {
+      ...formData,
+      image: imageUrl,
+    });
+
+    // Show success message and close form
+    setShowExitoso(true);
+    setShowForm(false);
   }
 
   const handleChange = (event) => {
@@ -67,12 +96,11 @@ export default function AdminForm({ setShowForm, action, product }) {
   }, [action, product]);
 
   console.log("imageUrl", imageUrl)
-  console.log('product', product)
-  // console.log("categoryData", categoryData)
+  console.log("formData", formData)
 
   return (
     <div
-      className={`z-10 relative w-full h-screen ${bg2} flex items-center justify-center`}
+      className={`z-10 relative w-full h-screen ${bg2} flex items-center justify-center `}
     >
       {showExitoso && (
         <div className="z-50 absolute shadow-xl">
@@ -88,7 +116,7 @@ export default function AdminForm({ setShowForm, action, product }) {
         {/* FORMULARIO PARA CREAR O EDITAR PRODUCTOS */}
         <form
           onSubmit={onSubmit}
-          className={`rounded-lg ${bg3} flex flex-col p-8 gap-y-8  shadow-2xl`}
+          className={`rounded-lg ${bg3} flex flex-col p-8 shadow-md gap-y-8 `}
         >
           <p className="text-slate-300 text-2xl -mb-5 font-bold">
             FORMULARIO PARA {actionText} PRODUCTOS
@@ -173,13 +201,18 @@ export default function AdminForm({ setShowForm, action, product }) {
               <input
                 name="image"
                 type="file"
-                accept="image/*"
-                className="border border-gray-400 rounded-md px-3 py-[5px] mt-1 focus:outline-none focus:border-blue-500"
+
+                className="border border-gray-400 rounded-md px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
                 onChange={(event) =>
                   setFormData({ ...formData, image: event.target.files[0] })
                 }
               />
+              {/* Mostrar el nombre del archivo seleccionado */}
+              {formData.image && formData.image.name && (
+                <p className="text-gray-400 mt-2">Nombre del archivo: {formData.image.name}</p>
+              )}
             </div>
+
             <div className="flex flex-col">
               <label htmlFor="category" className="text-sm text-gray-300">
                 Categoría
@@ -200,22 +233,30 @@ export default function AdminForm({ setShowForm, action, product }) {
             </div>
           </div>
           <div className="h-[360px] flex flex-row justify-between items-center">
-            <div className="w-[60%] h-[360px] bg-slate-200 rounded-md relative shadow-lg">
-            {product.image && typeof product.image === 'string' && (
-              <img
-                src={product?.imagen}
-                alt={product.imagen}
-                className="object-cover w-full h-full rounded-md"
-              />
-            )}
+
+            {/* cuadro de la imagen */}
+           
+            <div className="w-[60%] h-[360px] bg-slate-200 rounded-md relative">
+              {/* Mostrar la imagen si está seleccionada */}
+              {formData?.imagen && (
+                <img
+                  // src={URL.createObjectURL(formData.image)}
+                  src={formData.imagen}
+                  alt="Selected Image"
+                  className="object-cover w-full h-full rounded-md"
+                />
+              )}
 
 
+              {/* Mostrar un mensaje si no hay imagen seleccionada */}
               {!formData.image && (
                 <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-400">
                   No image selected
                 </p>
               )}
             </div>
+
+
             <div className="w-[40%] h-full flex justify-center items-center">
               <div className="flex flex-col items-center justify-end w-full gap-y-8">
                 <button
