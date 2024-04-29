@@ -71,4 +71,4 @@ export default App;
 // - branch-0011: Mejorar el scroll del car
 // - branch-0012: Personalizar los checkboxes de las cards
 // - branch-0013: Mostrar la imagen del producto cuando se edita un producto
-// - branch-0014: Poner a funcionar el botón delete, edit y crear de la tabla
+// - branch-0014: Poner a funcionar el botón: delete, edit y crear de la tabla
