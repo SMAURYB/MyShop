@@ -56,6 +56,7 @@ export default App;
 // - No esta cargando las fotos en firebase (revisar, creo que ya se resolvió)
 // - hacer que los colores de fondo tengan gradiente
 // - Configurar firebase con un .env
+// - branch-0016: Despues de editar o crear un producto en firebase a traves de AdminForm, se debe actualizar la lista de productos en el index (revisar, creo que ya se resolvió)
 
 // DONE
 // - branch-0002: Que las fotos circulares nunca se deformen
@@ -64,10 +65,10 @@ export default App;
 // - branch-0005: Colocar que se vea la foto del producto en la tabla del index
 // - branch-0006: Que aparezca el nombre y no el id de la categoria en la 
 // - branch-0007: colocar el número de items seleccionados
-// - branch-0008: Despues de editar o crear un producto en firebase a traves de AdminForm, se debe actualizar la lista de productos en el index (revisar, creo que ya se resolvió)
+
 // - branch-0009: hacer un tema claro (blanco)
 // - branch-0010: (x) el boton del formulario profile no funciona
 // - branch-0011: Mejorar el scroll del car
 // - branch-0012: Personalizar los checkboxes de las cards
 // - branch-0013: Mostrar la imagen del producto cuando se edita un producto
-// - branch-0014: Poner a funcionar el botón delete de la tabla
+// - branch-0014: Poner a funcionar el botón delete, edit y crear de la tabla
