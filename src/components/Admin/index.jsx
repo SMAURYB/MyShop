@@ -7,6 +7,7 @@ import useDataBase from '../../hooks/useDataBase';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { db } from "../../firebase.config"; // Importa la instancia de Firestore
 import { doc, deleteDoc } from "firebase/firestore";
+
 import '../../App.css';
 
 export default function Admin() {
@@ -20,17 +21,18 @@ export default function Admin() {
   const { bg1, bg2, bg3 } = useTheme();
   const navigate = useNavigate();
 
-  // Función para eliminar un producto de Firestore
-const handleDeleteButton = async (productId) => {
-  try {
-    const documentRef = doc(db, "productos", productId);
-    await deleteDoc(documentRef);
-    console.log("Producto eliminado exitosamente");
-  } catch (error) {
-    console.error("Error al eliminar el producto:", error);
-  }
-};
-
+  const handleDeleteButton = async (productId) => {
+    // Assuming productId might be a number or another type that can be converted to string
+  
+    try {
+      const productRef = doc(db, "productos", String(productId)); // Convert to string before using in doc()
+      await deleteDoc(productRef);
+      console.log("Producto eliminado exitosamente");
+    } catch (error) {
+      console.error("Error al eliminar el producto:", error);
+    }
+  };
+  
   // Function to handle item editing
   const handleEditCreateButton = (producto) => {
     if(producto) {
@@ -68,9 +70,9 @@ const handleDeleteButton = async (productId) => {
           </p>
           <p className='text-[25px] text-slate-300'>{name2}</p>
         </div>
-        <div className="overflow-y-scroll w-full h-[90%] custom-scroll border border-slate-500">
-          <table className="text-slate-300 w-full bg-zinc-400 bg-opacity-30 border border-slate-500">
-            <thead className={`h-[46px] ${bg1} sticky top-0 z-10 border-4 border-slate-500`}>
+        <div className="overflow-y-scroll w-full h-[90%] custom-scroll">
+          <table className="text-slate-300 w-full bg-zinc-400 bg-opacity-30 relative">
+            <thead className={`h-[46px] ${bg1} sticky top-0 z-10`}>
               <tr>
                 <th className="border border-slate-500 px-2">Id</th>
                 <th className="border border-slate-500 px-0 text-center">Imagen</th>
@@ -85,9 +87,9 @@ const handleDeleteButton = async (productId) => {
                 <th className="border border-slate-500">Acción</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="overflow-hidden scroll-me-48">
             {sortedDataBase.map(item => (
-                <tr key={item.id} className="h-[46px] border border-slate-500">
+                <tr key={item.id} className="max-h-[46px]">
                   <td className="border border-slate-500 text-center">{item.id}</td>
                   <td className="border border-slate-500 text-center">
                     <div className="flex justify-center">
@@ -104,7 +106,7 @@ const handleDeleteButton = async (productId) => {
                   <td className="border border-slate-500 text-center">
                     {getCategoryName(item.category)}
                   </td>
-                  <td className=" h-[46px] gap-x-3 flex flex-row items-center justify-center ">
+                  <td className="border border-slate-500 h-[46px] gap-x-3 flex flex-row items-center justify-center ">
                     <button className="flex flex-row items-center justify-center w-8 h-8 rounded-md bg-red-600 text-white" onClick={() => handleDeleteButton(item.id)}>
                       <RiDeleteBin6Line />
                     </button>

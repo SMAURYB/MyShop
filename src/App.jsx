@@ -53,11 +53,9 @@ export default App;
 // - usar Contex para variables globales como carrito de compras
 
 // - Mejorar errores de la versión mobil
-// - branch-0012: poner a funcionar el botón delete de la tabla
 // - No esta cargando las fotos en firebase (revisar, creo que ya se resolvió)
-
-
 // - hacer que los colores de fondo tengan gradiente
+// - Configurar firebase con un .env
 
 // DONE
 // - branch-0002: Que las fotos circulares nunca se deformen
@@ -71,3 +69,5 @@ export default App;
 // - branch-0010: (x) el boton del formulario profile no funciona
 // - branch-0011: Mejorar el scroll del car
 // - branch-0012: Personalizar los checkboxes de las cards
+// - branch-0013: Mostrar la imagen del producto cuando se edita un producto
+// - branch-0014: Poner a funcionar el botón delete de la tabla
