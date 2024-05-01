@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTheme } from '../../context/ThemeContext'
-import { useAuth } from '../../context/AuthContext'
+// import { useAuth } from '../../context/AuthContext'
 import { RiDeleteBin6Line, RiEdit2Line } from 'react-icons/ri'
 import AdminForm from './AdminForm'
 import useDataBase from '../../hooks/useDataBase'
@@ -14,11 +14,11 @@ export default function Admin () {
   const [showForm, setShowForm] = useState(false)
   const [product, setProduct] = useState(false)
   const [action, setAction] = useState(null)
-  const { user } = useAuth()
+  // const { user } = useAuth()
   const location = useLocation()
   const { dataBase, categoryData } = useDataBase()
   const name2 = location.state?.name
-  const { bg1, bg2, bg3 } = useTheme()
+  const { bg1, bg2 } = useTheme()
   const navigate = useNavigate()
 
   const handleDeleteButton = async (productId) => {
