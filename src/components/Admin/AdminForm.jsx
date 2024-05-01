@@ -238,10 +238,10 @@ export default function AdminForm({ setShowForm, action, product }) {
            
             <div className="w-[60%] h-[360px] bg-slate-200 rounded-md relative">
               {/* Mostrar la imagen si está seleccionada */}
-              {formData?.imagen && (
+              {formData?.image && (
                 <img
                   // src={URL.createObjectURL(formData.image)}
-                  src={formData.imagen}
+                  src={formData.image}
                   alt="Selected Image"
                   className="object-cover w-full h-full rounded-md"
                 />
