@@ -1,21 +1,20 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './components/Login';
-import Register from './components/Register';
-import Store from './components/Store';
-import Dashboard from './components/Dashboard';
-import Profile from './components/Profile';
-import Payment from './components/Payment';
-import Admin from './components/Admin';
-import { useAuth } from './context/AuthContext';
-import { ThemeProvider } from './context/ThemeContext'; // Importa el proveedor de contexto de temas
-import './App.css';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import Login from './components/Login'
+import Register from './components/Register'
+import Store from './components/Store'
+import Dashboard from './components/Dashboard'
+import Profile from './components/Profile'
+import Payment from './components/Payment'
+import Admin from './components/Admin'
+import { useAuth } from './context/AuthContext'
+import { ThemeProvider } from './context/ThemeContext' // Importa el proveedor de contexto de temas
+import './App.css'
 
-function App() {
-  const { user, loading } = useAuth();
+function App () {
+  const { user, loading } = useAuth()
 
   // Define la función de redirección
-  const redirectToLogin = () => <Navigate to="/login" />;
+  const redirectToLogin = () => <Navigate to="/login" />
 
   return (
     <ThemeProvider> {/* Envuelve toda la aplicación con el proveedor de contexto de temas */}
@@ -30,7 +29,7 @@ function App() {
             <>
               {/* Pasa la prop isAuthenticated al componente Dashboard */}
               <Route path="/" element={<Store />} />
-              <Route path="/dashboard" element={<Dashboard isAuthenticated={true} />} />
+              <Route path="/dashboard" element={<Dashboard isAuthenticated={true}/>} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/admin" element={<Admin />} />
@@ -39,10 +38,10 @@ function App() {
         </Routes>
       </Router>
     </ThemeProvider>
-  );
+  )
 }
 
-export default App;
+export default App
 
 // BACKLOG
 // - crear acceso a páginas por tipo de usuarios y tipos de usuarios en firebase
@@ -56,14 +55,15 @@ export default App;
 // - No esta cargando las fotos en firebase (revisar, creo que ya se resolvió)
 // - hacer que los colores de fondo tengan gradiente
 // - Configurar firebase con un .env
-// - branch-0016: Despues de editar o crear un producto en firebase a traves de AdminForm, se debe actualizar la lista de productos en el index (revisar, creo que ya se resolvió)
+// - branch-0016: Descargar los datos de usuarios regirstrados y colocar nombre (name) en dashboard
+// - Despues de editar o crear un producto en firebase a traves de AdminForm, se debe actualizar la lista de productos en el index (revisar, creo que ya se resolvió)
 
 // DONE
 // - branch-0002: Que las fotos circulares nunca se deformen
 // - branch-0003: Que los temas sean una variable global y prevalescan
 // - branch-0004: ordenar tabla de productos por ID en orden descendente
 // - branch-0005: Colocar que se vea la foto del producto en la tabla del index
-// - branch-0006: Que aparezca el nombre y no el id de la categoria en la 
+// - branch-0006: Que aparezca el nombre y no el id de la categoria en la
 // - branch-0007: colocar el número de items seleccionados
 
 // - branch-0009: hacer un tema claro (blanco)
@@ -72,3 +72,4 @@ export default App;
 // - branch-0012: Personalizar los checkboxes de las cards
 // - branch-0013: Mostrar la imagen del producto cuando se edita un producto
 // - branch-0014: Poner a funcionar el botón: delete, edit y crear de la tabla
+// - branch-0015:

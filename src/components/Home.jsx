@@ -1,18 +1,18 @@
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom"; 
+import { useAuth } from '../context/AuthContext'
+// import { useNavigate } from 'react-router-dom'
 
-export default function Home() {
-  const { logout, user } = useAuth();
-  const navigate = useNavigate();
+export default function Home () {
+  const { logout } = useAuth()
+  // const navigate = useNavigate()
 
   // console.log(user);
   const handleLogout = async () => {
     try {
-      await logout();
+      await logout()
     } catch (error) {
-      console.error(error.message);
+      console.error(error.message)
     }
-  };
+  }
 
   return (
     <div className="w-full max-w-xs m-auto text-black bg-[#2e2]">
@@ -27,5 +27,5 @@ export default function Home() {
         </button>
       </div>
     </div>
-  );
+  )
 }

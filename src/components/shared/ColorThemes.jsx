@@ -1,8 +1,7 @@
-import React from 'react';
-import { useTheme } from '../../context/ThemeContext';
+import { useTheme } from '../../context/ThemeContext'
 
-export default function ColorThemes({ showColorOptions, setShowColorOptions, bg2 }) {
-  const { setThemes } = useTheme();
+export default function ColorThemes ({ showColorOptions, setShowColorOptions, bg2 }) {
+  const { setThemes } = useTheme()
 
   // Define an array of theme objects
   const themes = [
@@ -35,17 +34,17 @@ export default function ColorThemes({ showColorOptions, setShowColorOptions, bg2
       name: 'Slate',
       colors: ['bg-[#8d8d8d]', 'bg-[#5d6c6d]', 'bg-[#7e9496]', 'bg-[#70b38b]'],
       txColor: 'text-[#cdf7c2]'
-    },
-  ];
+    }
+  ]
 
   // Function to set theme
   const setTheme = (colors) => {
-    setThemes(...colors);
-    setShowColorOptions(false);
-  };
+    setThemes(...colors)
+    setShowColorOptions(false)
+  }
 
   return (
-    <div className={`w-32 rounded-xl p-4 ${bg2} border border-slate-400/10 transition-opacity duration-500 ${!showColorOptions && 'opacity-0' }`}>
+    <div className={`w-32 rounded-xl p-4 ${bg2} border border-slate-400/10 transition-opacity duration-500 ${!showColorOptions && 'opacity-0'}`}>
       <ul className="gap-2 text-gray-300 text-lg list-disc list-inside">
         {themes.map((theme, index) => (
           <li
@@ -58,5 +57,5 @@ export default function ColorThemes({ showColorOptions, setShowColorOptions, bg2
         ))}
       </ul>
     </div>
-  );
+  )
 }

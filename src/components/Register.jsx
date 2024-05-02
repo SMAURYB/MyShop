@@ -1,55 +1,51 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { Alert } from "./Alert";
-import { useTheme } from '../context/ThemeContext';
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+import { Alert } from './Alert'
+import { useTheme } from '../context/ThemeContext'
 
-export default function Register() {
-  const { signup } = useAuth(); // Eliminamos uid de aquí
-  const { bg2 } = useTheme();
+export default function Register () {
+  const { signup } = useAuth() // Eliminamos uid de aquí
+  const { bg2 } = useTheme()
   const [user, setUser] = useState({
-    email: "",
-    password: ""
-  });
+    email: '',
+    password: ''
+  })
 
-  const [error, setError] = useState("");
-  const [errorSpanish, setErrorSpanish] = useState("");
-  const navigate = useNavigate();
+  const [error, setError] = useState('')
+  const [errorSpanish, setErrorSpanish] = useState('')
+  const navigate = useNavigate()
 
   const userHandler = (e) => {
-    const { name, value } = e.target;
-    setUser((prevState) => ({ ...prevState, [name]: value }));
-  };
+    const { name, value } = e.target
+    setUser((prevState) => ({ ...prevState, [name]: value }))
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+    e.preventDefault()
+    setError('')
     try {
-      const { email, password } = user; // Extraemos email y password del estado user
-      await signup(email, password); // Usamos email y password directamente en signup
-      navigate("/profile", { state: { message: '¡Bienvenido! Complete su perfil para continuar.', user } });
+      const { email, password } = user // Extraemos email y password del estado user
+      await signup(email, password) // Usamos email y password directamente en signup
+      navigate('/profile', { state: { message: '¡Bienvenido! Complete su perfil para continuar.', user } })
     } catch (error) {
-      setError(error.message); 
+      setError(error.message)
 
-      if (error.code === "auth/email-already-in-use") {
-        setErrorSpanish("El correo electrónico ya está en uso. Por favor, ingrese otro correo electrónico.");
-      } 
-      else if (error.code === "auth/weak-password") {
-        setErrorSpanish("La contraseña es débil. Debe tener al menos 6 caracteres.");
-      } 
-      else if (error.code === "auth/invalid-email") {
-        setErrorSpanish("El correo electrónico no válido");
-      }
-      else if (error.code === "auth/missing-password") {
-        setErrorSpanish("Debe escribir una contraseña");
-      }
-      else if (error.code === "auth/missing-email") {
-        setErrorSpanish("Debe escribir un correo");
+      if (error.code === 'auth/email-already-in-use') {
+        setErrorSpanish('El correo electrónico ya está en uso. Por favor, ingrese otro correo electrónico.')
+      } else if (error.code === 'auth/weak-password') {
+        setErrorSpanish('La contraseña es débil. Debe tener al menos 6 caracteres.')
+      } else if (error.code === 'auth/invalid-email') {
+        setErrorSpanish('El correo electrónico no válido')
+      } else if (error.code === 'auth/missing-password') {
+        setErrorSpanish('Debe escribir una contraseña')
+      } else if (error.code === 'auth/missing-email') {
+        setErrorSpanish('Debe escribir un correo')
       }
     }
-  };
+  }
 
-  console.log("error", error)
+  console.log('error', error)
 
   return (
     <div className={`${bg2} flex flex-row items-center justify-center w-full h-screen`}>
@@ -93,7 +89,7 @@ export default function Register() {
             />
           </div>
 
-          <button 
+          <button
             className="bg-blue-500 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
               Registrarse
           </button>
@@ -106,5 +102,5 @@ export default function Register() {
         </p>
       </div>
     </div>
-  );
+  )
 }

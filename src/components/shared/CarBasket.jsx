@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
-import { RiDeleteBin6Line } from 'react-icons/ri';
+import { useState } from 'react'
+import { RiDeleteBin6Line } from 'react-icons/ri'
 
 const CarBasket = (props) => {
-  const { id, productName, price, image, inventory, deleteItem, bg1 } = props;
-  const [cantidad, setCantidad] = useState(1);
+  const { id, productName, price, image, inventory, deleteItem, bg1 } = props
+  const [cantidad, setCantidad] = useState(1)
 
   const handleCantidadChange = (newCantidad) => {
-    
-      setCantidad(newCantidad);
-      props.updateTotalCarrito(newCantidad, props.producto, props.index);
-  
-  };
+    setCantidad(newCantidad)
+    props.updateTotalCarrito(newCantidad, props.producto, props.index)
+  }
 
   const handleDeleteFromCarList = (id) => {
     // console.log('handleDeleteFromCarList')
     // Llama a la función deleteItem del prop para eliminar el elemento del carList
-    deleteItem(id);
-  };
+    deleteItem(id)
+  }
 
   return (
     <div className={`${bg1} p-3 rounded-xl mb-[10px] border border-slate-400/10 shadow-md`}>
@@ -36,12 +34,12 @@ const CarBasket = (props) => {
             <span>$ {props.producto.valorTotal}</span>
           </div>
           <div className='h-5 flex flex-row justify-center items-center gap-x-2 font-semibold'>
-          <button
-            onClick={() => (cantidad > 1) ? handleCantidadChange(cantidad - 1) :handleCantidadChange(1)}
-            className="text-gray-400 font-bold text-2xl w-6 h-6 bg-[rgb(80, 80, 80)]/[15%] rounded-full flex items-center justify-center pb-2 transition duration-300 ease-in-out hover:bg-[#505050]/90 hover:border-[#545554]"
-          >
+            <button
+              onClick={() => (cantidad > 1) ? handleCantidadChange(cantidad - 1) : handleCantidadChange(1)}
+              className="text-gray-400 font-bold text-2xl w-6 h-6 bg-[rgb(80, 80, 80)]/[15%] rounded-full flex items-center justify-center pb-2 transition duration-300 ease-in-out hover:bg-[#505050]/90 hover:border-[#545554]"
+            >
             -
-          </button>
+            </button>
 
             <span className='w-8 flex flex-row justify-center'>{cantidad}</span>
             <button
@@ -56,16 +54,16 @@ const CarBasket = (props) => {
       </div>
       {/* Note */}
       <div className="flex flex-row justify-end items-center">
-      
+
         <div className=''>
-          <button 
-          onClick={() => handleDeleteFromCarList(id)}
-          className="rounded-lg hover:scale-[105%]"
+          <button
+            onClick={() => handleDeleteFromCarList(id)}
+            className="rounded-lg hover:scale-[105%]"
           >
             <RiDeleteBin6Line className="text-red-500 w-6 h-6 " />
           </button>
         </div>
-          {/* <form className="col-span-5">
+        {/* <form className="col-span-5">
           <input
             type="text"
             className="bg-[#1F1D2B] py-2 px-4 rounded-lg outline-none"
@@ -74,7 +72,7 @@ const CarBasket = (props) => {
         </form> */}
       </div>
     </div>
-  );
+  )
 }
 
-export default CarBasket;
+export default CarBasket

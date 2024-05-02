@@ -1,21 +1,21 @@
-import { RiSearch2Line } from "react-icons/ri";
-import { useState } from "react";
-import { useAuth } from '../../context/AuthContext';
-import useDataBase from '../../hooks/useDataBase';
+import { RiSearch2Line } from 'react-icons/ri'
+import { useState } from 'react'
+// import { useAuth } from '../../context/AuthContext'
+import useDataBase from '../../hooks/useDataBase'
 
 const Header = (props) => {
-  const { selectedCategory, setSelectedCategory, setSearchItem, matchingCount, bg2, bg4, name } = props;
-  const [searchText, setSearchText] = useState(''); // Agregado estado para el texto de búsqueda
+  const { selectedCategory, setSelectedCategory, setSearchItem, matchingCount, bg2, bg4, name } = props
+  const [searchText, setSearchText] = useState('') // Agregado estado para el texto de búsqueda
   const { categoryData } = useDataBase()
 
-  const hoy = new Date().toLocaleDateString();
-  const authContext = useAuth()
+  const hoy = new Date().toLocaleDateString()
+  // const authContext = useAuth()
   const handleSearch = (e) => {
-    const inputValue = e.target.value;
-    setSearchItem(inputValue);
-    setSearchText(inputValue); // Actualiza el estado del texto de búsqueda
+    const inputValue = e.target.value
+    setSearchItem(inputValue)
+    setSearchText(inputValue) // Actualiza el estado del texto de búsqueda
     // Puedes realizar más acciones con el valor del input si es necesario
-  };
+  }
 
   return (
     <header>
@@ -44,27 +44,26 @@ const Header = (props) => {
         </div>
       </div>
       {/* Tabs */}
-        {searchText ?
-          <nav className='text-slate-100 flex items-center justify-between md:justify-start md:gap-8 border-b mb-6 '>
-            <p className='py-2 pr-4'>
-              {`Búsqueda por palabra '${searchText}', entrega '${matchingCount}' resultados`}
-            </p>
-          </nav>
-        :
-          <nav className='text-slate-100 flex items-center justify-between md:justify-start md:gap-8 border-b mb-3'>
-            {categoryData.map(item => (
-              <button
-                key={item.id}
-                className={`py-2 pr-4 ${selectedCategory === item.category ? `relative before:w-1/2 before:h-[2px] before:absolute before:${bg4} before:left-0 before:rounded-full before:-bottom-[1px] text-[#ec7c6a]` : ''}`}
-                onClick={() => setSelectedCategory(item.category)}
-              >
-                {item.name}
-              </button>
-            ))}
-          </nav>
-        }
+      {searchText
+        ? <nav className='text-slate-100 flex items-center justify-between md:justify-start md:gap-8 border-b mb-6 '>
+          <p className='py-2 pr-4'>
+            {`Búsqueda por palabra '${searchText}', entrega '${matchingCount}' resultados`}
+          </p>
+        </nav>
+        : <nav className='text-slate-100 flex items-center justify-between md:justify-start md:gap-8 border-b mb-3'>
+          {categoryData.map(item => (
+            <button
+              key={item.id}
+              className={`py-2 pr-4 ${selectedCategory === item.category ? `relative before:w-1/2 before:h-[2px] before:absolute before:${bg4} before:left-0 before:rounded-full before:-bottom-[1px] text-[#ec7c6a]` : ''}`}
+              onClick={() => setSelectedCategory(item.category)}
+            >
+              {item.name}
+            </button>
+          ))}
+        </nav>
+      }
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
