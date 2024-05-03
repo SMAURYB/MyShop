@@ -15,9 +15,21 @@ function App () {
 
   // Define la función de redirección
   const redirectToLogin = () => <Navigate to="/login" />
-
+    
+function App () {
+  const { user, loading } = useAuth()
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  console.log('user', user)
+  console.log('loading', loading)
+  useEffect(() => {
+    if (user) {
+      (
+        setIsAuthenticated(true)
+      )
+    }
+  }, [user])
   return (
-    <ThemeProvider> {/* Envuelve toda la aplicación con el proveedor de contexto de temas */}
+    <ThemeProvider>
       <Router>
         <Routes>
           {/* Ruta para redirigir a /login si el usuario no está autenticado */}
