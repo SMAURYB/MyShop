@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Login from './components/Login'
 import Register from './components/Register'
@@ -10,17 +11,15 @@ import { useAuth } from './context/AuthContext'
 import { ThemeProvider } from './context/ThemeContext' // Importa el proveedor de contexto de temas
 import './App.css'
 
-function App () {
-  const { user, loading } = useAuth()
+// Define la función de redirección
+const redirectToLogin = () => <Navigate to="/login" />
 
-  // Define la función de redirección
-  const redirectToLogin = () => <Navigate to="/login" />
-    
 function App () {
   const { user, loading } = useAuth()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   console.log('user', user)
   console.log('loading', loading)
+
   useEffect(() => {
     if (user) {
       (
@@ -41,7 +40,7 @@ function App () {
             <>
               {/* Pasa la prop isAuthenticated al componente Dashboard */}
               <Route path="/store" element={<Store />} />
-              <Route path="/dashboard" element={<Dashboard isAuthenticated={true}/>} />
+              <Route path="/dashboard" element={<Dashboard isAuthenticated={isAuthenticated}/>} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/admin" element={<Admin />} />
@@ -68,7 +67,8 @@ export default App
 // - hacer que los colores de fondo tengan gradiente
 // - Configurar firebase con un .env
 // - branch-0016: Descargar los datos de usuarios regirstrados y colocar nombre (name) en dashboard
-// - branch-0017: Cuando estoy en el store y quiero entrar a "profile" quiero que se rellenen los datos del formulario con
+// - branch-0017: colocar el usuario con avatar en el store
+// - branch-0018: Cuando estoy en el store y quiero entrar a "profile" quiero que se rellenen los datos del formulario con
 //   lo que haya disponible en el momento.
 // - Despues de editar o crear un producto en firebase a traves de AdminForm, se debe actualizar la lista de productos en el index (revisar, creo que ya se resolvió)
 
