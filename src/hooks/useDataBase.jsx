@@ -26,7 +26,6 @@ export default function useDataBase () {
         // Convertir los documentos a un array de datos y actualizar el estado con los datos obtenidos
         const productosData = querySnapshot.docs.map((doc) => doc.data())
         setDataBase(productosData)
-        console.log('productosData', productosData)
         // Filtrar los datos de categorías para obtener solo las categorías únicas
         const uniqueCategories = [...new Set(productosData.map(item => item.category))]
 

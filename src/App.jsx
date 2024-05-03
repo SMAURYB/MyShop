@@ -21,14 +21,14 @@ function App () {
       <Router>
         <Routes>
           {/* Ruta para redirigir a /login si el usuario no está autenticado */}
-          <Route path="/store" element={!user && !loading ? redirectToLogin() : null} />
+          <Route path="/" element={!user && !loading ? redirectToLogin() : null} />
           {/* Define las rutas normales */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           {user && (
             <>
               {/* Pasa la prop isAuthenticated al componente Dashboard */}
-              <Route path="/" element={<Store />} />
+              <Route path="/store" element={<Store />} />
               <Route path="/dashboard" element={<Dashboard isAuthenticated={true}/>} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/payment" element={<Payment />} />
@@ -56,6 +56,8 @@ export default App
 // - hacer que los colores de fondo tengan gradiente
 // - Configurar firebase con un .env
 // - branch-0016: Descargar los datos de usuarios regirstrados y colocar nombre (name) en dashboard
+// - branch-0017: Cuando estoy en el store y quiero entrar a "profile" quiero que se rellenen los datos del formulario con
+//   lo que haya disponible en el momento.
 // - Despues de editar o crear un producto en firebase a traves de AdminForm, se debe actualizar la lista de productos en el index (revisar, creo que ya se resolvió)
 
 // DONE

@@ -27,7 +27,7 @@ export default function Register () {
     try {
       const { email, password } = user // Extraemos email y password del estado user
       await signup(email, password) // Usamos email y password directamente en signup
-      navigate('/profile', { state: { message: '¡Bienvenido! Complete su perfil para continuar.', user } })
+      navigate('/profile', { state: { message: '¡Bienvenido! Complete su perfil para continuar.xxxxxxx', user } })
     } catch (error) {
       setError(error.message)
 
