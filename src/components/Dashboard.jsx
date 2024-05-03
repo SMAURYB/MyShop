@@ -6,7 +6,6 @@ import { useTheme } from '../context/ThemeContext'
 import useUsers from '../hooks/useUsers'
 
 export default function Dashboard ({ isAuthenticated }) {
-
   const [name, setName] = useState('')
   const { usersData } = useUsers()
   const authContext = useAuth()
@@ -18,7 +17,6 @@ export default function Dashboard ({ isAuthenticated }) {
   const userEmail = authContext?.user?.email
   const userUid = authContext?.user?.uid
   console.log('userUid', userUid)
-
 
   const handleContinueClick = () => {
     navigate('/store')
@@ -34,7 +32,6 @@ export default function Dashboard ({ isAuthenticated }) {
   }
 
   useEffect(() => {
-
     // Buscar el nombre del usuario basado en el uid actual (userUid)
     const currentUser = usersData.find(user => user.id === userUid)
     // Si se encuentra el usuario, establecer el nombre en el estado local
