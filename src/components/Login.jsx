@@ -1,81 +1,76 @@
 import { useState } from 'react'
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { Alert } from "./Alert";
-import { useTheme } from '../context/ThemeContext';
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+import { Alert } from './Alert'
+import { useTheme } from '../context/ThemeContext'
 // import { AuthCredential } from 'firebase/auth';
 
-export default function Login() {
+export default function Login () {
   const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
-  const { bg2 } = useTheme();
-  const { login, loginWithGoogle, resetPassword } = useAuth();
-  const [error, setError] = useState("");
-  const [errorSpanish, setErrorSpanish] = useState("");
+    email: '',
+    password: ''
+  })
+  const { bg2 } = useTheme()
+  const { login, loginWithGoogle, resetPassword } = useAuth()
+  const [error, setError] = useState('')
+  const [errorSpanish, setErrorSpanish] = useState('')
   const [reset, setReset] = useState(false)
   // const authContext = useAuth();
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+    e.preventDefault()
+    setError('')
     try {
-      await login(user?.email, user?.password);
-      setUser({ email: user?.email }); 
-      navigate("/dashboard", { state: { message: 'Bienvenido nuevamente a su tienda Online' } });
+      await login(user?.email, user?.password)
+      setUser({ email: user?.email })
+      navigate('/dashboard', { state: { message: 'Bienvenido nuevamente a su tienda Online' } })
     } catch (error) {
-      
-      setError(error.message); 
-      if (error.code === "auth/invalid-credential") {
-        setErrorSpanish("El correo electrónico y/o la contraseña están erradas.");
-      } 
-      else if (error.code === "auth/missing-password") {
-        setErrorSpanish("Debe ingresar una contraseña.");
-      } 
-      else if (error.code === "auth/missing-email") {
-        setErrorSpanish("Debe ingresar un email.");
-      } 
-      else if (error.code === "auth/invalid-email") {
-        setErrorSpanish("Debe ingresar un email válido.");
-      } 
-      else {
-        setErrorSpanish("Ha ocurrido un error. Por favor, inténtelo nuevamente.");
+      setError(error.message)
+      if (error.code === 'auth/invalid-credential') {
+        setErrorSpanish('El correo electrónico y/o la contraseña están erradas.')
+      } else if (error.code === 'auth/missing-password') {
+        setErrorSpanish('Debe ingresar una contraseña.')
+      } else if (error.code === 'auth/missing-email') {
+        setErrorSpanish('Debe ingresar un email.')
+      } else if (error.code === 'auth/invalid-email') {
+        setErrorSpanish('Debe ingresar un email válido.')
+      } else {
+        setErrorSpanish('Ha ocurrido un error. Por favor, inténtelo nuevamente.')
       }
     }
-  };
+  }
 
   const handleChange = ({ target: { value, name } }) =>
-    setUser({ ...user, [name]: value });
+    setUser({ ...user, [name]: value })
 
   const handleGoogleSignin = async () => {
     console.log('entré a handleGoogleSignin')
     try {
-      await loginWithGoogle();
-      navigate("/");
+      await loginWithGoogle()
+      navigate('/')
     } catch (error) {
-      setError(error.message);
+      setError(error.message)
     }
-  };
+  }
 
   const handleResetPassword = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
     setReset(true)
-    if (!user.email) return setError("Escribe un email para resetear el password");
+    if (!user.email) return setError('Escribe un email para resetear el password')
     try {
-      await resetPassword(user.email);
+      await resetPassword(user.email)
       setError('Enviamos un email, revise su bandeja de entrada')
     } catch (error) {
-      setError(error.message);
+      setError(error.message)
     }
-  };
+  }
 
   // useEffect(() => {
   //   console.log("userName1", authContext?.user?.email)
   // }, [authContext]);
-  
-  console.log("error", error)
+
+  console.log('error', error)
 
   return (
     <div className={`${bg2} flex flex-row items-center justify-center w-full h-screen`}>
@@ -102,8 +97,9 @@ export default function Login() {
               placeholder="tucorreo@correo.com"
             />
           </div>
-          { reset? <></> :
-            <div className="mb-4">
+          { reset
+            ? <></>
+            : <div className="mb-4">
               <label
                 htmlFor="password"
                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -121,20 +117,21 @@ export default function Login() {
             </div>
           }
           <div className="flex items-center justify-between">
-            { reset? <></> :
-              <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
+            { reset
+              ? <></>
+              : <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit"
+              >
               Ingrese
-            </button>
+              </button>
             }
             <a
               className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
               href="#!"
               onClick={handleResetPassword}
             >
-              {reset?"Enviar correo":"Olvidó su contraseña?"}
+              {reset ? 'Enviar correo' : 'Olvidó su contraseña?'}
             </a>
           </div>
         </form>
@@ -147,13 +144,13 @@ export default function Login() {
         </button>
         <p className="my-4 text-sm flex justify-between px-3 text-slate-300">
           No tienes una cuenta?
-          <button 
-            onClick={() => navigate("/register")}
+          <button
+            onClick={() => navigate('/register')}
             className="text-blue-400 hover:text-blue-300">
             Regístrese aquí
           </button>
         </p>
       </div>
     </div>
-  );
+  )
 }

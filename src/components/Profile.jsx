@@ -1,55 +1,59 @@
-import { useState } from "react";
-import { useNavigate, useLocation } from 'react-router-dom';
-import { GrFormClose } from 'react-icons/gr';
-import { useAuth } from "../context/AuthContext";
-import { db } from "../firebase.config"; 
-import { useTheme } from '../context/ThemeContext';
-import { doc, setDoc } from "firebase/firestore";
-import { v4 } from "uuid";
+import { useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { GrFormClose } from 'react-icons/gr'
+import { useAuth } from '../context/AuthContext'
+import { db } from '../firebase.config'
+import { useTheme } from '../context/ThemeContext'
+import { doc, setDoc } from 'firebase/firestore'
+// import { v4 } from 'uuid'
 
 const Profile = () => {
-  const { uid } = useAuth();
-  const location = useLocation();
-  const message = location.state?.message;
-  const userPassword = location.state?.user?.password;
-  const userEmail = location.state?.user?.email;
-  const { bg1, bg2, bg3, bg4 } = useTheme();
+  const { uid } = useAuth()
+  const location = useLocation()
+  const message = location.state?.message
+  const userPassword = location.state?.user?.password
+  const userEmail = location.state?.user?.email
+  const { bg2, bg3 } = useTheme()
   const [formData, setFormData] = useState({
     username: '',
     phone: '',
     address: '',
     email: userEmail,
     password: userPassword
-  });
-  const navigate = useNavigate();
+  })
+  const navigate = useNavigate()
 
   const onSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
-      const docRef = doc(db, "usuarios", v4()); 
+      const docRef = doc(db, 'usuarios', uid)
       await setDoc(docRef, {
         nombre: formData.username,
         direccion: formData.address,
         correo: formData.email,
         password: formData.password,
         telefono: formData.phone,
-        uid: uid
-      });
-      navigate("/dashboard", { state: { message: 'Bienvenido a tu tienda Online', submessage: 'Deseas editar tu perfil?'} });
+        id: uid
+      })
+      navigate('/dashboard', { state: { message: 'Bienvenido a tu tienda Online', submessage: 'Deseas editar tu perfil?' } })
     } catch (error) {
-      console.error("Error al enviar los datos del usuario a Firestore:", error);
+      console.error('Error al enviar los datos del usuario a Firestore:', error)
     }
-  };
+  }
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
+    const { name, value } = event.target
+    setFormData({ ...formData, [name]: value })
+  }
+
+  console.log('userEmail', userEmail)
+  console.log('userPassWord', userPassword)
+  console.log('uid', uid)
 
   return (
     <div className={`${bg2} flex flex-row items-center justify-center w-full h-screen`}>
-      <div className={`relative ${bg3} w-[400px] flex flex-col justify-between py-10 px-8 mt-[50px] rounded-xl`}>
-        <button 
+      <div className={`relative ${bg3} w-[400px] flex flex-col justify-between py-10 px-8 mt-[50px] rounded-xl  border border-slate-200/10`}>
+        <button
           className="absolute -right-1 -top-1 w-5 h-5 cursor-pointer rounded-full bg-[#e6ebf5] flex flex-row items-center justify-center"
           onClick={() => navigate(-1)}
         >
@@ -115,22 +119,23 @@ const Profile = () => {
           <div className="flex flex-row gap-x-4 justify-between">
             <button
               type="button"
-              onClick={() => navigate("/dashboard", { state: { message: 'Bienvenido a su tienda Online' } })}
-              className={`${bg2} hover:bg-opacity-50 text-white rounded-lg p-2 w-full mt-10`}
+              onClick={() => navigate('/dashboard', { state: { message: 'Bienvenido a su tienda Online' } })}
+              className={`${bg2} hover:bg-opacity-50 text-white rounded-lg p-2 w-full mt-10 border border-slate-200/10`}
             >
               Saltar este paso
             </button>
             <button
               type="submit"
-              className={`${bg2} hover:bg-opacity-50 text-white rounded-lg p-2 w-full mt-10`}
+              className={`${bg2} hover:bg-opacity-50 text-white rounded-lg p-2 w-full mt-10 border border-slate-200/10`}
             >
               Enviar
             </button>
           </div>
         </form>
+        <p className='text-xs mt-5 text-right'>uid: {uid}</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

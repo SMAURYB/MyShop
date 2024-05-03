@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Login from './components/Login'
 import Register from './components/Register'
 import Store from './components/Store'
@@ -8,8 +7,15 @@ import Profile from './components/Profile'
 import Payment from './components/Payment'
 import Admin from './components/Admin'
 import { useAuth } from './context/AuthContext'
-import { ThemeProvider } from './context/ThemeContext'
+import { ThemeProvider } from './context/ThemeContext' // Importa el proveedor de contexto de temas
+import './App.css'
 
+function App () {
+  const { user, loading } = useAuth()
+
+  // Define la función de redirección
+  const redirectToLogin = () => <Navigate to="/login" />
+    
 function App () {
   const { user, loading } = useAuth()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -26,13 +32,21 @@ function App () {
     <ThemeProvider>
       <Router>
         <Routes>
+          {/* Ruta para redirigir a /login si el usuario no está autenticado */}
+          <Route path="/" element={!user && !loading ? redirectToLogin() : null} />
+          {/* Define las rutas normales */}
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path='/store' element={<Store />}/>
-          <Route path='/dashboard' element={<Dashboard isAuthenticated={isAuthenticated}/>}/>
-          <Route path='/profile' element={<Profile />}/>
-          <Route path='/payment' element={<Payment />}/>
-          <Route path='/admin' element={<Admin />}/>
+          {user && (
+            <>
+              {/* Pasa la prop isAuthenticated al componente Dashboard */}
+              <Route path="/store" element={<Store />} />
+              <Route path="/dashboard" element={<Dashboard isAuthenticated={true}/>} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/payment" element={<Payment />} />
+              <Route path="/admin" element={<Admin />} />
+            </>
+          )}
         </Routes>
       </Router>
     </ThemeProvider>
@@ -53,9 +67,10 @@ export default App
 // - No esta cargando las fotos en firebase (revisar, creo que ya se resolvió)
 // - hacer que los colores de fondo tengan gradiente
 // - Configurar firebase con un .env
-// - branch-0017: Habilitar menú de versión móvil
-// - branch-0016: Despues de editar o crear un producto en firebase a traves de AdminForm, se debe actualizar la lista de productos en el index
-// - branch-0015: No esta mostrando las fotos en el store
+// - branch-0016: Descargar los datos de usuarios regirstrados y colocar nombre (name) en dashboard
+// - branch-0017: Cuando estoy en el store y quiero entrar a "profile" quiero que se rellenen los datos del formulario con
+//   lo que haya disponible en el momento.
+// - Despues de editar o crear un producto en firebase a traves de AdminForm, se debe actualizar la lista de productos en el index (revisar, creo que ya se resolvió)
 
 // DONE
 // - branch-0002: Que las fotos circulares nunca se deformen
@@ -71,3 +86,4 @@ export default App
 // - branch-0012: Personalizar los checkboxes de las cards
 // - branch-0013: Mostrar la imagen del producto cuando se edita un producto
 // - branch-0014: Poner a funcionar el botón: delete, edit y crear de la tabla
+// - branch-0015:

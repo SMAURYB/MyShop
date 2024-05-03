@@ -1,102 +1,102 @@
-import { useState, useEffect } from "react";
-import { useTheme } from '../../context/ThemeContext';
-import { useAuth } from "../../context/AuthContext";
-import useDataBase from '../../hooks/useDataBase';
+import { useState, useEffect } from 'react'
+import { useTheme } from '../../context/ThemeContext'
+// import { useAuth } from '../../context/AuthContext'
+import useDataBase from '../../hooks/useDataBase'
 
-import { db, storage } from "../../firebase.config";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Add getDownloadURL
-import { doc, setDoc } from "firebase/firestore";
+import { db, storage } from '../../firebase.config'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage' // Add getDownloadURL
+import { doc, setDoc } from 'firebase/firestore'
 
-import { v4 } from "uuid";
-import Popup from "../shared/Popup";
+import { v4 } from 'uuid'
+import Popup from '../shared/Popup'
 
-export default function AdminForm({ setShowForm, action, product }) {
-  const { user } = useAuth();
-  const { bg2, bg3, bg4 } = useTheme();
-  const [showExitoso, setShowExitoso] = useState(false);
+export default function AdminForm ({ setShowForm, action, product }) {
+  // const { user } = useAuth()
+  const { bg2, bg3, bg4 } = useTheme()
+  const [showExitoso, setShowExitoso] = useState(false)
   const [actionText, setActionText] = useState(null)
-  const [imageUrl, setImageUrl] = useState(null)
-  const { categoryData } = useDataBase();
+  const [imageUrl] = useState(null)
+  const { categoryData } = useDataBase()
 
   const [formData, setFormData] = useState({
     // Establecer la imagen del producto si estás en modo de edición
-    image: action === "Edit" ? product.image : null,
+    image: action === 'Edit' ? product.image : null,
     // Agregar un campo de ID cuando se está creando un nuevo producto
-    id: action === "Create" ? v4() : null,
-  });
+    id: action === 'Create' ? v4() : null
+  })
 
-  async function onSubmit(event) {
-    event.preventDefault();
+  async function onSubmit (event) {
+    event.preventDefault()
 
-    if (action === "Create") {
+    if (action === 'Create') {
       // Handle Create logic
-      const imageFile = formData.image;
+      const imageFile = formData.image
       if (!imageFile) {
-        console.error("No image selected");
-        return;
+        console.error('No image selected')
+        return
       }
 
-      const imageRef = ref(storage, `images/${imageFile.name}`);
-      await uploadBytes(imageRef, imageFile);
-      const imageUrl = await getDownloadURL(imageRef);
+      const imageRef = ref(storage, `images/${imageFile.name}`)
+      await uploadBytes(imageRef, imageFile)
+      const imageUrl = await getDownloadURL(imageRef)
 
       // Construct the document reference for the new product
-      const docRef = doc(db, "productos", formData.id); // Use the ID from formData
+      const docRef = doc(db, 'productos', formData.id) // Use the ID from formData
 
       // Set the document with form data and image URL
       await setDoc(docRef, {
         ...formData,
-        image: imageUrl,
-      });
+        image: imageUrl
+      })
 
       // Show success message and close form
-      setShowExitoso(true);
-      setShowForm(false);
-      return;
+      setShowExitoso(true)
+      setShowForm(false)
+      return
     }
 
     // Handle Edit logic
-    const imageFile = formData.image;
+    const imageFile = formData.image
     if (!imageFile) {
-      console.error("No image selected");
-      return;
+      console.error('No image selected')
+      return
     }
 
-    const imageRef = ref(storage, `images/${imageFile.name}`);
-    await uploadBytes(imageRef, imageFile);
-    const imageUrl = await getDownloadURL(imageRef);
+    const imageRef = ref(storage, `images/${imageFile.name}`)
+    await uploadBytes(imageRef, imageFile)
+    const imageUrl = await getDownloadURL(imageRef)
 
     // Construct the document reference for the existing product
-    const docRef = doc(db, "productos", product.id); // Use product.id from props
+    const docRef = doc(db, 'productos', product.id) // Use product.id from props
 
     // Update the document with new data
     await setDoc(docRef, {
       ...formData,
-      image: imageUrl,
-    });
+      image: imageUrl
+    })
 
     // Show success message and close form
-    setShowExitoso(true);
-    setShowForm(false);
+    setShowExitoso(true)
+    setShowForm(false)
   }
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
+    const { name, value } = event.target
+    setFormData({ ...formData, [name]: value })
+  }
 
   // useEffect
   useEffect(() => {
-    if (action === "Edit") {
-      setActionText("EDITAR")
-      setFormData(product);
-    } else if (action === "Create") {
-      setActionText("AGREGAR")
-    }   
-  }, [action, product]);
+    if (action === 'Edit') {
+      setActionText('EDITAR')
+      setFormData(product)
+    } else if (action === 'Create') {
+      setActionText('AGREGAR')
+    }
+  }, [action, product])
 
-  console.log("imageUrl", imageUrl)
-  console.log("formData", formData)
+  console.log('imageUrl', imageUrl)
+  console.log('formData', formData)
 
   return (
     <div
@@ -110,7 +110,7 @@ export default function AdminForm({ setShowForm, action, product }) {
       {/* Transparencia blur para el fondo */}
       <div
         className={`flex flex-col items-center justify-center gap-x-5 rounded-3xl p-8 shadow-sm ${
-          showExitoso ? "blur-3xl" : ""
+          showExitoso ? 'blur-3xl' : ''
         }`}
       >
         {/* FORMULARIO PARA CREAR O EDITAR PRODUCTOS */}
@@ -129,7 +129,7 @@ export default function AdminForm({ setShowForm, action, product }) {
               <input
                 name="ref"
                 type="text"
-                value={formData.ref || ""}
+                value={formData.ref || ''}
                 className="border border-gray-300 rounded-md px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
                 onChange={handleChange}
               />
@@ -141,7 +141,7 @@ export default function AdminForm({ setShowForm, action, product }) {
               <input
                 name="branch"
                 type="text"
-                value={formData.branch || ""}
+                value={formData.branch || ''}
                 className="border border-gray-300 rounded-md px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
                 onChange={handleChange}
               />
@@ -153,7 +153,7 @@ export default function AdminForm({ setShowForm, action, product }) {
               <input
                 name="name"
                 type="text"
-                value={formData.name || ""}
+                value={formData.name || ''}
                 className="border border-gray-300 rounded-md px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
                 onChange={handleChange}
               />
@@ -165,7 +165,7 @@ export default function AdminForm({ setShowForm, action, product }) {
               <input
                 name="size"
                 type="text"
-                value={formData.size || ""}
+                value={formData.size || ''}
                 className="border border-gray-300 rounded-md px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
                 onChange={handleChange}
               />
@@ -177,7 +177,7 @@ export default function AdminForm({ setShowForm, action, product }) {
               <input
                 name="price"
                 type="text"
-                value={formData.price || ""}
+                value={formData.price || ''}
                 className="border border-gray-300 rounded-md px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
                 onChange={handleChange}
               />
@@ -189,7 +189,7 @@ export default function AdminForm({ setShowForm, action, product }) {
               <input
                 name="availability"
                 type="text"
-                value={formData.availability || ""}
+                value={formData.availability || ''}
                 className="border border-gray-300 rounded-md px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
                 onChange={handleChange}
               />
@@ -219,7 +219,7 @@ export default function AdminForm({ setShowForm, action, product }) {
               </label>
               <select
                 name="category"
-                value={formData.category || ""}
+                value={formData.category || ''}
                 onChange={handleChange}
                 className="border border-gray-300 rounded-md px-3 py-2 mt-1 focus:outline-none focus:border-blue-500"
               >
@@ -235,7 +235,7 @@ export default function AdminForm({ setShowForm, action, product }) {
           <div className="h-[360px] flex flex-row justify-between items-center">
 
             {/* cuadro de la imagen */}
-           
+
             <div className="w-[60%] h-[360px] bg-slate-200 rounded-md relative">
               {/* Mostrar la imagen si está seleccionada */}
               {formData?.image && (
@@ -247,7 +247,6 @@ export default function AdminForm({ setShowForm, action, product }) {
                 />
               )}
 
-
               {/* Mostrar un mensaje si no hay imagen seleccionada */}
               {!formData.image && (
                 <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-400">
@@ -256,7 +255,6 @@ export default function AdminForm({ setShowForm, action, product }) {
               )}
             </div>
 
-
             <div className="w-[40%] h-full flex justify-center items-center">
               <div className="flex flex-col items-center justify-end w-full gap-y-8">
                 <button
@@ -264,7 +262,7 @@ export default function AdminForm({ setShowForm, action, product }) {
                   type="submit"
                   onClick={onSubmit}
                 >
-                  {action === "Create" ? "Crear" : "Editar"}
+                  {action === 'Create' ? 'Crear' : 'Editar'}
                 </button>
                 <button
                   onClick={() => setShowForm(false)}
@@ -278,5 +276,5 @@ export default function AdminForm({ setShowForm, action, product }) {
         </form>
       </div>
     </div>
-  );
+  )
 }

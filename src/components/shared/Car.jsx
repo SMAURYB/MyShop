@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
-import { RiCloseLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
-import CarBasket from "./CarBasket";
-import EmptyCarBasket from "./EmptyCarBasket";
-import '../../App.css';
+import { useState, useEffect } from 'react'
+import { RiCloseLine } from 'react-icons/ri'
+import { useNavigate } from 'react-router-dom'
+import CarBasket from './CarBasket'
+import EmptyCarBasket from './EmptyCarBasket'
+import '../../App.css'
 
 const Car = (props) => {
-  const { 
-    showOrder, 
-    setShowOrder, 
-    carList, 
+  const {
+    showOrder,
+    setShowOrder,
+    carList,
     setCarList,
     filteredList,
     searchList,
@@ -17,77 +17,77 @@ const Car = (props) => {
     bg2,
     bg3,
     bg4
-  } = props;
+  } = props
 
-  const [totalCarrito, setTotalCarrito] = useState(0);
+  const [totalCarrito, setTotalCarrito] = useState(0)
   const [itemsQty, setItemsQty] = useState(0)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const updateTotalCarrito = (cant, producto, index) => {
-    let total = 0;
+    let total = 0
     const lista = carList.map((item, i) => {
       if (i === index) {
-        const valorTotalItem = item.price * cant;
-        total += valorTotalItem;
+        const valorTotalItem = item.price * cant
+        total += valorTotalItem
         return {
           ...item,
           cantidad: cant,
           valorTotal: valorTotalItem
-        };
+        }
       } else {
-        total += (item.valorTotal);
-        return item;
+        total += (item.valorTotal)
+        return item
       }
-    });
-    setCarList(lista);
-    setTotalCarrito(total);
-  };
+    })
+    setCarList(lista)
+    setTotalCarrito(total)
+  }
 
   // Recorre el arreglo y suma los valores
   useEffect(() => {
-    const productos = carList;
-    let sumaValorTotal = 0;
-  
+    const productos = carList
+    let sumaValorTotal = 0
+
     productos.forEach(producto => {
-      sumaValorTotal += producto.valorTotal;
-    });
-  
-    setTotalCarrito(sumaValorTotal);
-  }, [carList]);
+      sumaValorTotal += producto.valorTotal
+    })
+
+    setTotalCarrito(sumaValorTotal)
+  }, [carList])
 
   // FUNCION PARA ELIMINAR UN ITEM DE carList CUANDO SE DA CLICK EN EL ICONO 'BASURERO'
   const deleteItem = (id) => {
-      const auxCarlist = [...carList]
-      const elemetToDeleteIndex = auxCarlist.findIndex((e) => e.id === id)
-      if (elemetToDeleteIndex > -1) {
-        auxCarlist.splice(elemetToDeleteIndex, 1)
-      }
-      setCarList(auxCarlist)
-      let elementToModify = searchList.find((e) => e.id === id)
-      if (elementToModify) {
-        elementToModify.checked = false
-      }
+    const auxCarlist = [...carList]
+    const elemetToDeleteIndex = auxCarlist.findIndex((e) => e.id === id)
+    if (elemetToDeleteIndex > -1) {
+      auxCarlist.splice(elemetToDeleteIndex, 1)
+    }
+    setCarList(auxCarlist)
+    const elementToModify = searchList.find((e) => e.id === id)
+    if (elementToModify) {
+      elementToModify.checked = false
+    }
 
-      let elementToModify2 = filteredList.find((e) => e.id === id)
-      if (elementToModify2) {
-        elementToModify2.checked = false
-      }
-  };
+    const elementToModify2 = filteredList.find((e) => e.id === id)
+    if (elementToModify2) {
+      elementToModify2.checked = false
+    }
+  }
 
   useEffect(() => {
-    const qty = carList.length;
-    setItemsQty(qty);
-  }, [carList]);
-  
+    const qty = carList.length
+    setItemsQty(qty)
+  }, [carList])
+
   // Efecto para actualizar el total cada vez que renderice
   useEffect(() => {
-    updateTotalCarrito();
-  }, []);
+    updateTotalCarrito()
+  }, [])
 
   return (
     <div
       className={`lg:col-span-2 fixed top-0 ${bg2} w-full lg:w-96 lg:right-0 h-full transition-all border border-slate-400/10 ${
-        showOrder ? "right-0" : "-right-full"
+        showOrder ? 'right-0' : '-right-full'
       }`}
     >
       {/* Orders */}
@@ -98,29 +98,32 @@ const Car = (props) => {
         />
         <div className="">
           <div className="relative h-[420px] md:h-[700px] lg:h-[560px] overflow-scroll custom-scroll">
-            {carList.length > 0 ? carList.map((item, index) => (
-              <CarBasket 
-                key={item.id}  // Asegúrate de agregar esta línea
-                id={item.id}
-                productName={item.description}
-                price={item.price}
-                image={item.img}
-                inventory={item.inventory}
-                updateTotalCarrito={(cant) => updateTotalCarrito(cant, item, index)}
-                producto={item}
-                index={index} // Pasa el índice al componente CarBasket
-                setCarList={setCarList}
-                deleteItem={() => deleteItem(item.id)}  // Agrega esta línea
-                bg1={bg1}
-              />
+            {carList.length > 0
+              ? carList.map((item, index) => (
+                <CarBasket
+                  key={item.id} // Asegúrate de agregar esta línea
+                  id={item.id}
+                  productName={item.description}
+                  price={item.price}
+                  image={item.img}
+                  inventory={item.inventory}
+                  updateTotalCarrito={(cant) => updateTotalCarrito(cant, item, index)}
+                  producto={item}
+                  index={index} // Pasa el índice al componente CarBasket
+                  setCarList={setCarList}
+                  deleteItem={() => deleteItem(item.id)} // Agrega esta línea
+                  bg1={bg1}
+                />
               ))
-              :
-              <>
-                <EmptyCarBasket />
-                <EmptyCarBasket />
-                <EmptyCarBasket />
-              </>
+              : (
+                <>
+                  <EmptyCarBasket key={1} /> {/* Asegúrate de agregar una clave única */}
+                  <EmptyCarBasket key={2} /> {/* Asegúrate de agregar una clave única */}
+                  <EmptyCarBasket key={3} /> {/* Asegúrate de agregar una clave única */}
+                </>
+              )
             }
+
           </div>
         </div>
         {/* Submit payment */}
@@ -134,9 +137,9 @@ const Car = (props) => {
             <span>$ {totalCarrito}</span>
           </div>
           <div>
-            <button 
+            <button
               className={`${bg4} w-full py-2 px-4 rounded-lg text-[#fff] font-bold`}
-              onClick={() => navigate("/payment")}
+              onClick={() => navigate('/payment')}
             >
               Continuar con el pago
             </button>
@@ -144,7 +147,7 @@ const Car = (props) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Car;
+export default Car
