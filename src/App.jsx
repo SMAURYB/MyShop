@@ -59,9 +59,7 @@ export default App
 // - No esta cargando las fotos en firebase (revisar, creo que ya se resolvió)
 // - hacer que los colores de fondo tengan gradiente
 // - Configurar firebase con un .env
-// - branch-0016: Descargar los datos de usuarios regirstrados y colocar nombre (name) en dashboard
-// - branch-0017: Arreglar reglas de collections "usuarios" y "productos"
-// - branch-0018: Popup de confirmación de eliminar item del carBasket cuando se pretende dejar en cero..
+
 // - Ojo.... Cuando se borra un item del carrito, solamente se des-seleccionan los que estan filtrados en pantalla
 // - No se ven las fotos de productos
 // - branch-0019: Cuando estoy en el store y quiero entrar a "profile" quiero que se rellenen los datos del formulario con
@@ -84,3 +82,6 @@ export default App
 // - branch-0013: Mostrar la imagen del producto cuando se edita un producto
 // - branch-0014: Poner a funcionar el botón: delete, edit y crear de la tabla
 // - branch-0015:
+// - branch-0016: Descargar los datos de usuarios regirstrados y colocar nombre (name) en dashboard
+// - branch-0017: Arreglar reglas de collections "usuarios" y "productos"
+// - branch-0018: Popup de confirmación de eliminar item del carBasket cuando se pretende dejar en cero..
