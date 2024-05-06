@@ -48,6 +48,6 @@ export default function useDataBase () {
     fetchData()
   }, []) // El array vacío como segundo argumento asegura que el efecto se ejecute solo una vez al montar el componente
 
-  console.log('dataBase', dataBase)
+  // console.log('dataBase', dataBase)
   return { dataBase, categoryData, selectedCategory, setSelectedCategory }
 }

@@ -15,7 +15,7 @@ export default function AdminForm ({ setShowForm, action, product }) {
   const { bg2, bg3, bg4 } = useTheme()
   const [showExitoso, setShowExitoso] = useState(false)
   const [actionText, setActionText] = useState(null)
-  const [imageUrl] = useState(null)
+  // const [imageUrl, setImageUrl] = useState(null)
   const { categoryData } = useDataBase()
 
   const [formData, setFormData] = useState({
@@ -28,56 +28,37 @@ export default function AdminForm ({ setShowForm, action, product }) {
   async function onSubmit (event) {
     event.preventDefault()
 
-    if (action === 'Create') {
-      // Handle Create logic
-      const imageFile = formData.image
-      if (!imageFile) {
-        console.error('No image selected')
-        return
-      }
-
-      const imageRef = ref(storage, `images/${imageFile.name}`)
-      await uploadBytes(imageRef, imageFile)
-      const imageUrl = await getDownloadURL(imageRef)
-
-      // Construct the document reference for the new product
-      const docRef = doc(db, 'productos', formData.id) // Use the ID from formData
-
-      // Set the document with form data and image URL
-      await setDoc(docRef, {
-        ...formData,
-        image: imageUrl
-      })
-
-      // Show success message and close form
-      setShowExitoso(true)
-      setShowForm(false)
-      return
-    }
-
-    // Handle Edit logic
     const imageFile = formData.image
     if (!imageFile) {
       console.error('No image selected')
       return
     }
 
+    // Crear una referencia al Storage
     const imageRef = ref(storage, `images/${imageFile.name}`)
-    await uploadBytes(imageRef, imageFile)
-    const imageUrl = await getDownloadURL(imageRef)
 
-    // Construct the document reference for the existing product
-    const docRef = doc(db, 'productos', product.id) // Use product.id from props
+    try {
+      // Subir la imagen al Storage
+      await uploadBytes(imageRef, imageFile)
 
-    // Update the document with new data
-    await setDoc(docRef, {
-      ...formData,
-      image: imageUrl
-    })
+      // Obtener la URL de descarga de la imagen
+      const imageUrl = await getDownloadURL(imageRef)
+      console.log('imageUrl-adminForm', imageUrl)
+      // Construir la referencia del documento para el nuevo producto
+      const productDocRef = doc(db, 'productos', formData.id)
 
-    // Show success message and close form
-    setShowExitoso(true)
-    setShowForm(false)
+      // Guardar el documento del producto en Firestore con la URL de la imagen
+      await setDoc(productDocRef, {
+        ...formData,
+        image: imageUrl // Usar la URL de descarga como referencia de la imagen
+      })
+
+      // Mostrar mensaje de éxito
+      setShowExitoso(true)
+      setShowForm(false)
+    } catch (error) {
+      console.error('Error al subir la imagen o guardar el documento:', error)
+    }
   }
 
   const handleChange = (event) => {
@@ -95,8 +76,8 @@ export default function AdminForm ({ setShowForm, action, product }) {
     }
   }, [action, product])
 
-  console.log('imageUrl', imageUrl)
-  console.log('formData', formData)
+  // console.log('imageUrl', imageUrl)
+  // console.log('formData', formData)
 
   return (
     <div

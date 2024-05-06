@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Login from './components/Login'
 import Register from './components/Register'
 import Store from './components/Store'
@@ -8,42 +8,35 @@ import Profile from './components/Profile'
 import Payment from './components/Payment'
 import Admin from './components/Admin'
 import { useAuth } from './context/AuthContext'
-import { ThemeProvider } from './context/ThemeContext' // Importa el proveedor de contexto de temas
-import './App.css'
-
-// Define la función de redirección
-const redirectToLogin = () => <Navigate to="/login" />
+import { ThemeProvider } from './context/ThemeContext'
+// import { keyframes } from 'styled-components'
 
 function App () {
-  const { user, loading } = useAuth()
+  const { user } = useAuth()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  console.log('user', user)
-  console.log('loading', loading)
 
   useEffect(() => {
     if (user) {
-      (
-        setIsAuthenticated(true)
-      )
+      setIsAuthenticated(true)
     }
   }, [user])
+
   return (
     <ThemeProvider>
       <Router>
         <Routes>
-          {/* Ruta para redirigir a /login si el usuario no está autenticado */}
-          <Route path="/" element={!user && !loading ? redirectToLogin() : null} />
-          {/* Define las rutas normales */}
+          {/* Ruta para el login, accesible sin importar si el usuario está autenticado */}
+          <Route path='/' element={<Dashboard isAuthenticated={isAuthenticated}/>}/>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {user && (
+          {/* Rutas protegidas que solo deben ser accesibles si el usuario está autenticado */}
+          {isAuthenticated && (
             <>
-              {/* Pasa la prop isAuthenticated al componente Dashboard */}
-              <Route path="/store" element={<Store />} />
-              <Route path="/dashboard" element={<Dashboard isAuthenticated={isAuthenticated}/>} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/payment" element={<Payment />} />
-              <Route path="/admin" element={<Admin />} />
+              <Route path='/store' element={<Store />} />
+              <Route path='/dashboard' element={<Dashboard isAuthenticated={isAuthenticated}/>}/>
+              <Route path='/profile' element={<Profile />} />
+              <Route path='/payment' element={<Payment />} />
+              <Route path='/admin' element={<Admin />} />
             </>
           )}
         </Routes>
@@ -67,8 +60,12 @@ export default App
 // - hacer que los colores de fondo tengan gradiente
 // - Configurar firebase con un .env
 // - branch-0016: Descargar los datos de usuarios regirstrados y colocar nombre (name) en dashboard
-// - branch-0017: colocar el usuario con avatar en el store
-// - branch-0018: Cuando estoy en el store y quiero entrar a "profile" quiero que se rellenen los datos del formulario con
+// - branch-0017: Arreglar reglas de collections "usuarios" y "productos"
+// - branch-0018: Popup de confirmación de eliminar item del carBasket cuando se pretende dejar en cero..
+// - Ojo.... Cuando se borra un item del carrito, solamente se des-seleccionan los que estan filtrados en pantalla
+// - No se ven las fotos de productos
+// - branch-0019: Cuando estoy en el store y quiero entrar a "profile" quiero que se rellenen los datos del formulario con
+
 //   lo que haya disponible en el momento.
 // - Despues de editar o crear un producto en firebase a traves de AdminForm, se debe actualizar la lista de productos en el index (revisar, creo que ya se resolvió)
 

@@ -9,7 +9,10 @@ const Car = (props) => {
   const {
     showOrder,
     setShowOrder,
+    setShowConfirmZeroPopup,
     carList,
+    si,
+    setSi,
     setCarList,
     filteredList,
     searchList,
@@ -55,12 +58,13 @@ const Car = (props) => {
     setTotalCarrito(sumaValorTotal)
   }, [carList])
 
-  // FUNCION PARA ELIMINAR UN ITEM DE carList CUANDO SE DA CLICK EN EL ICONO 'BASURERO'
+  // FUNCION PARA ELIMINAR UN ITEM DE carList CUANDO SE DA CLICK EN EL ICONO 'BASURERO o CUANDO
+  // SE INTENTA COLOCAR LA CANTIDAD EN CERO Y SE CONFIRMA SU ELIMINACION EN EL POPUP
   const deleteItem = (id) => {
     const auxCarlist = [...carList]
-    const elemetToDeleteIndex = auxCarlist.findIndex((e) => e.id === id)
-    if (elemetToDeleteIndex > -1) {
-      auxCarlist.splice(elemetToDeleteIndex, 1)
+    const elementToDeleteIndex = auxCarlist.findIndex((e) => e.id === id)
+    if (elementToDeleteIndex > -1) {
+      auxCarlist.splice(elementToDeleteIndex, 1)
     }
     setCarList(auxCarlist)
     const elementToModify = searchList.find((e) => e.id === id)
@@ -101,19 +105,22 @@ const Car = (props) => {
             {carList.length > 0
               ? carList.map((item, index) => (
                 <CarBasket
-                  key={item.id} // Asegúrate de agregar esta línea
+                  key={item.id}
                   id={item.id}
+                  si={si}
+                  setSi={setSi}
                   productName={item.description}
+                  setShowConfirmZeroPopup={setShowConfirmZeroPopup}
                   price={item.price}
                   image={item.img}
                   inventory={item.inventory}
                   updateTotalCarrito={(cant) => updateTotalCarrito(cant, item, index)}
                   producto={item}
-                  index={index} // Pasa el índice al componente CarBasket
                   setCarList={setCarList}
-                  deleteItem={() => deleteItem(item.id)} // Agrega esta línea
+                  deleteItem={deleteItem}
                   bg1={bg1}
                 />
+
               ))
               : (
                 <>

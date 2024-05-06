@@ -1,23 +1,43 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 
 const CarBasket = (props) => {
-  const { id, productName, price, image, inventory, deleteItem, bg1 } = props
+  const { id, productName, price, image, inventory, deleteItem, bg1, setShowConfirmZeroPopup, si, setSi } = props
   const [cantidad, setCantidad] = useState(1)
 
-  const handleCantidadChange = (newCantidad) => {
-    setCantidad(newCantidad)
-    props.updateTotalCarrito(newCantidad, props.producto, props.index)
+  const handleCantidadChange = (actionType) => {
+    if (actionType === 'mas') {
+      if (cantidad < inventory) {
+        setCantidad(cantidad + 1)
+      } else {
+        alert('La cantidad excede el inventario disponible')
+      }
+    } else if (actionType === 'menos') {
+      if (cantidad === 1) {
+        setShowConfirmZeroPopup(true)
+      } else {
+        setCantidad(cantidad - 1)
+      }
+    }
   }
 
   const handleDeleteFromCarList = (id) => {
-    // console.log('handleDeleteFromCarList')
-    // Llama a la función deleteItem del prop para eliminar el elemento del carList
     deleteItem(id)
+    setSi(false)
+    setShowConfirmZeroPopup(false)
   }
 
+  useEffect(() => {
+    console.log('entró al useEffect')
+    if (si) {
+      handleDeleteFromCarList(id)
+    }
+  }, [si])
+
+  console.log('id en CarBasket', id)
+
   return (
-    <div className={`${bg1} p-3 rounded-xl mb-[10px] border border-slate-400/10 shadow-md`}>
+    <div className={`${bg1} relative p-3 rounded-xl mb-[10px] border border-slate-400/10 shadow-md`}>
       <div className="mb-[7px] gap-2 flex flex-row justify-between">
         {/* Product description */}
         <div className="flex items-center gap-3">
@@ -35,7 +55,7 @@ const CarBasket = (props) => {
           </div>
           <div className='h-5 flex flex-row justify-center items-center gap-x-2 font-semibold'>
             <button
-              onClick={() => (cantidad > 1) ? handleCantidadChange(cantidad - 1) : handleCantidadChange(1)}
+              onClick={() => handleCantidadChange('menos')}
               className="text-gray-400 font-bold text-2xl w-6 h-6 bg-[rgb(80, 80, 80)]/[15%] rounded-full flex items-center justify-center pb-2 transition duration-300 ease-in-out hover:bg-[#505050]/90 hover:border-[#545554]"
             >
             -
@@ -43,7 +63,7 @@ const CarBasket = (props) => {
 
             <span className='w-8 flex flex-row justify-center'>{cantidad}</span>
             <button
-              onClick={() => (cantidad < inventory) ? handleCantidadChange(cantidad + 1) : handleCantidadChange(inventory)}
+              onClick={() => handleCantidadChange('mas')}
               className="text-gray-400 font-bold text-2xl w-6 h-6 bg-[#505050]/[15%] rounded-full flex items-center justify-center pb-2 transition duration-300 ease-in-out hover:bg-[#505050]/90 hover:border-[#545554]"
             >
               +

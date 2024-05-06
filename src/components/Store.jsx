@@ -15,6 +15,7 @@ import Car from './shared/Car'
 import Header from './shared/Header'
 import Card from './shared/Card'
 import useDataBase from '../hooks/useDataBase'
+import Popup from './shared/Popup'
 
 export default function Store () {
   // const authContext = useAuth()
@@ -30,6 +31,8 @@ export default function Store () {
   const [matchingCount, setMatchingCount] = useState('')
   const [showProductImage, setShowProductImage] = useState(false)
   const [selectedImage, setSelectedImage] = useState('')
+  const [showConfirmZeroPopup, setShowConfirmZeroPopup] = useState(false)
+  const [si, setSi] = useState(false)
 
   // const userName = authContext?.user?.email
   const name = location.state?.userName
@@ -64,9 +67,20 @@ export default function Store () {
     setShowOrder(!showOrder)
     setShowMenu(false)
   }
+  console.log('si en store', si)
 
   return (
-    <div className={`${bg1}`}>
+    <>
+      {
+        showConfirmZeroPopup && (
+          <div className='fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100]'>
+            <Popup
+              setShowConfirmZeroPopup={setShowConfirmZeroPopup}
+              setSi={setSi}
+              message='¿Deseas sacar este producto de tu carro de compras?'/>
+          </div>
+        )
+      }
       {showProductImage && (
         <div className="z-40 flex items-center justify-center absolute w-full">
           <div className="relative">
@@ -84,101 +98,106 @@ export default function Store () {
           </div>
         </div>
       )}
-      <div className={` ${showProductImage ? 'blur-lg opacity-5' : `relative z-20 ${bg1} w-full h-screen`}`}>
-        <Sidebar
-          showMenu={showMenu}
-          name={name}
-        />
-        <Car
-          showOrder={showOrder}
-          setShowOrder={setShowOrder}
-          carList={carList}
-          setCarList={setCarList}
-          filteredList={filteredList}
-          searchList={searchList}
-          bg1={bg1}
-          bg2={bg2}
-          bg3={bg3}
-          bg4={bg4}
-        />
-        {/* Menu movil */}
-        <nav className={'z-20 lg:hidden fixed w-full h-screen bottom-0 left-0 text-3xl text-gray-100 py-2 px-8 flex items-end justify-between rounded-tl-xl rounded-tr-xl'}>
-          <button className="p-2">
-            <RiUser3Line />
-          </button>
-          <button className="p-2">
-            <RiAddLine />
-          </button>
-          <button onClick={toggleOrders} className="p-2">
-            <RiPieChartLine />
-          </button>
-          <button onClick={toggleMenu} className="text-white p-2">
-            {showMenu ? <RiCloseLine /> : <RiMenu3Fill />}
-          </button>
-        </nav>
-        <main className={`lg:pl-32 lg:pr-96 pb-0 flex flex-col items-center justify-start ${bg1}`}>
-          <div className="md:px-4 w-full h-auto">
-            {/* Header */}
-            <div className="position-fixed h-auto w-full">
-              <Header
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory}
-                setSearchItem={setSearchItem}
-                categoryData={categoryData}
-                matchingCount={matchingCount}
-                bg2={bg2}
-                bg4={bg4}
-                name={name}
-              />
+      <div className={` ${bg1} ${showConfirmZeroPopup ? 'blur-md  z-0' : ''} `}>
+        <div className={` ${showProductImage ? 'blur-lg opacity-5' : `relative z-20 ${bg1} w-full h-screen`}`}>
+          <Sidebar
+            showMenu={showMenu}
+            name={name}
+          />
+          <Car
+            showOrder={showOrder}
+            setShowOrder={setShowOrder}
+            carList={carList}
+            setCarList={setCarList}
+            filteredList={filteredList}
+            searchList={searchList}
+            setShowConfirmZeroPopup={setShowConfirmZeroPopup}
+            setSi={setSi}
+            si={si}
+            bg1={bg1}
+            bg2={bg2}
+            bg3={bg3}
+            bg4={bg4}
+          />
+          {/* Menu movil */}
+          <nav className={'z-20 lg:hidden fixed w-full h-screen bottom-0 left-0 text-3xl text-gray-100 py-2 px-8 flex items-end justify-between rounded-tl-xl rounded-tr-xl'}>
+            <button className="p-2">
+              <RiUser3Line />
+            </button>
+            <button className="p-2">
+              <RiAddLine />
+            </button>
+            <button onClick={toggleOrders} className="p-2">
+              <RiPieChartLine />
+            </button>
+            <button onClick={toggleMenu} className="text-white p-2">
+              {showMenu ? <RiCloseLine /> : <RiMenu3Fill />}
+            </button>
+          </nav>
+          <main className={`lg:pl-32 lg:pr-96 pb-0 flex flex-col items-center justify-start ${bg1}`}>
+            <div className="md:px-4 w-full h-auto">
+              {/* Header */}
+              <div className="position-fixed h-auto w-full">
+                <Header
+                  selectedCategory={selectedCategory}
+                  setSelectedCategory={setSelectedCategory}
+                  setSearchItem={setSearchItem}
+                  categoryData={categoryData}
+                  matchingCount={matchingCount}
+                  bg2={bg2}
+                  bg4={bg4}
+                  name={name}
+                />
+              </div>
+              <div className="h-full pb-8 px-8 pt-16 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-16 gap-y-[66px]">
+                {/* Muestra las cards por categorias filtradas */}
+                {
+                  searchItem
+                    ? searchList.map((item) => (
+                      <Card
+                        key={item.id}
+                        id={item.id}
+                        img={item.imagen}
+                        description={item.name}
+                        price={item.price}
+                        inventory={item.availability}
+                        setCarList={setCarList}
+                        carList={carList}
+                        selected={item.checked}
+                        setShowProductImage={setShowProductImage}
+                        setSelectedImage={setSelectedImage}
+                        filteredList={filteredList}
+                        searchList={searchList}
+                        bg3={bg3}
+                        bg2={bg2}
+                      />
+                    ))
+                    : filteredList.map((item) => (
+                      <Card
+                        key={item.id}
+                        id={item.id}
+                        img={item.imagen}
+                        description={item.name}
+                        price={item.price}
+                        inventory={item.availability}
+                        size={item.size}
+                        setCarList={setCarList}
+                        carList={carList}
+                        selected={item.checked}
+                        setShowProductImage={setShowProductImage}
+                        setSelectedImage={setSelectedImage}
+                        filteredList={filteredList}
+                        searchList={searchList}
+                        bg3={bg3}
+                        bg2={bg2}
+                      />
+                    ))
+                }
+              </div>
             </div>
-            <div className="h-full pb-8 px-8 pt-16 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-16 gap-y-[66px]">
-              {/* Muestra las cards por categorias filtradas */}
-              {
-                searchItem
-                  ? searchList.map((item) => (
-                    <Card
-                      key={item.id}
-                      id={item.id}
-                      img={item.imagen}
-                      description={item.name}
-                      price={item.price}
-                      inventory={item.availability}
-                      setCarList={setCarList}
-                      carList={carList}
-                      selected={item.checked}
-                      setShowProductImage={setShowProductImage}
-                      setSelectedImage={setSelectedImage}
-                      filteredList={filteredList}
-                      searchList={searchList}
-                      bg3={bg3}
-                      bg2={bg2}
-                    />
-                  ))
-                  : filteredList.map((item) => (
-                    <Card
-                      key={item.id}
-                      id={item.id}
-                      img={item.imagen}
-                      description={item.name}
-                      price={item.price}
-                      inventory={item.availability}
-                      size={item.size}
-                      setCarList={setCarList}
-                      carList={carList}
-                      selected={item.checked}
-                      setShowProductImage={setShowProductImage}
-                      setSelectedImage={setSelectedImage}
-                      filteredList={filteredList}
-                      searchList={searchList}
-                      bg3={bg3}
-                      bg2={bg2}
-                    />
-                  ))
-              }
-            </div>
-          </div>
-        </main>
+          </main>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
